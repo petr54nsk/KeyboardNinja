@@ -10,9 +10,10 @@ int main() {
     sf::RenderWindow app(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "KeyboardNinja");
 
     app.setFramerateLimit(60);
-    kb::Scene *scene;
-    scene = new kb::Scene1;
 
+    //Инициализация сцены
+    kb::Scene *scene;
+    scene = new kb::SceneMainMenu;
     scene->init(&app,scene);
 
     while (app.isOpen())

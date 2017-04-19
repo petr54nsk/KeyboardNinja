@@ -17,11 +17,12 @@ public:
     virtual void draw();
 };
 
-// SCENE0 ======================================================================
-class Scene0 : public Scene {
+// Сцена главного меню =========================================================
+class SceneMainMenu : public Scene {
 private:
     sf::Font* font;
     sf::Text* text;
+    // сюда пихать переменные для сцены меню
 
 public:
     bool init(sf::RenderWindow* app, Scene *id);
@@ -29,8 +30,8 @@ public:
     void draw();
 };
 
-// SCENE1 ======================================================================
-class Scene1 : public Scene {
+// Игровая сцена ===============================================================
+class SceneGame : public Scene {
 private:
     sf::Sprite *image_index;
     sf::Texture* image_texture;
