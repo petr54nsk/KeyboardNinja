@@ -15,6 +15,7 @@ public:
     virtual bool init(sf::RenderWindow* app, Scene *id);
     virtual char step();
     virtual void draw();
+    virtual char destroy();
 };
 
 // Сцена главного меню =========================================================
