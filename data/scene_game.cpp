@@ -3,12 +3,8 @@
 */
 
 // INIT ========================================================================
-bool kb::SceneGame::init(sf::RenderWindow* app, kb::Scene *id) {
+bool kb::SceneGame::init(sf::RenderWindow* app) {
     this->app = app;
-    id_scene = id;
-
-    //FILE *words_file;
-    //char words[10][10][10];
 
     image_texture = new sf::Texture;
     image_texture->loadFromFile("graphics/image.png");
@@ -70,12 +66,11 @@ void kb::SceneGame::draw() {
 
 // DESTROY =====================================================================
 void kb::SceneGame::destroy() {
-    /*fclose(words_file);
-    printf("%d",scene);
-    free(scene);
+    delete (image_texture);
+    delete (image_index);
+    fclose (words_file);
 
-    scene = new kb::SceneMainMenu;
-    scene->init(app,id_scene);*/
-    scene = scene0;
+    scene = scene_main_menu;
+    scene->init(app);
     return;
 }

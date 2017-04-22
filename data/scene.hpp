@@ -10,10 +10,9 @@ private:
 
 protected:
     sf::RenderWindow* app;
-    Scene* id_scene;
 
 public:
-    virtual bool init(sf::RenderWindow* app, Scene *id);
+    virtual bool init(sf::RenderWindow* app);
     virtual char step();
     virtual void draw();
     virtual void destroy();
@@ -24,10 +23,15 @@ class SceneMainMenu : public Scene {
 private:
     sf::Font* font;
     sf::Text* text;
+
+    sf::Sprite *image_index;
+    sf::Texture* image_texture;
     // сюда пихать переменные для сцены меню
+    // int new_var;
+    // int new_function(int, int);
 
 public:
-    bool init(sf::RenderWindow* app, Scene *id);
+    bool init(sf::RenderWindow* app);
     char step();
     void draw();
     void destroy();
@@ -42,14 +46,10 @@ private:
     char words[10][10];
 
 public:
-    bool init(sf::RenderWindow* app, Scene *id);
+    bool init(sf::RenderWindow* app);
     char step();
     void draw();
     void destroy();
 };
 
 };
-
-kb::Scene *scene;
-kb::SceneMainMenu *scene0;
-kb::SceneGame *scene1;

@@ -3,8 +3,12 @@
 
 #include "scene.hpp"
 
+kb::Scene *scene;
+kb::SceneMainMenu *scene_main_menu;
+kb::SceneGame *scene_game;
+
 //Основной интерфейс класса
-bool kb::Scene::init(sf::RenderWindow* app, kb::Scene *id) {
+bool kb::Scene::init(sf::RenderWindow* app) {
     return 0;
 }
 
@@ -17,9 +21,7 @@ void kb::Scene::draw() {
 }
 
 void kb::Scene::destroy() {
-    free(id_scene);
-    id_scene = new kb::SceneMainMenu;
-    id_scene->init(app,id_scene);
+    return;
 }
 
 //Реализация остальных сцен
