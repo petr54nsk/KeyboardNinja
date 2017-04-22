@@ -12,9 +12,13 @@ int main() {
     app.setFramerateLimit(60);
 
     //Инициализация сцены
-    kb::Scene *scene;
-    scene = new kb::SceneMainMenu;
-    scene->init(&app,scene);
+    scene0 = new kb::SceneMainMenu;
+    scene0->init(&app,scene0);
+
+    scene1 = new kb::SceneGame;
+    scene1->init(&app,scene1);
+
+    scene = scene0;
 
     while (app.isOpen())
     {

@@ -26,9 +26,7 @@ char kb::SceneMainMenu::step() {
 
     // Смена сцены при нажатии
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        free(id_scene);
-        id_scene = new kb::SceneGame;
-        id_scene->init(app,id_scene);
+        destroy();
         return 1;
     }
 
@@ -39,5 +37,15 @@ char kb::SceneMainMenu::step() {
 итерации главного цикла*/
 void kb::SceneMainMenu::draw() {
     app->draw(*text);
+    return;
+}
+
+void kb::SceneMainMenu::destroy() {
+    /*printf("%d",scene);
+    free(scene);
+
+    scene = new kb::SceneGame;
+    scene->init(app,id_scene);*/
+    scene = scene1;
     return;
 }

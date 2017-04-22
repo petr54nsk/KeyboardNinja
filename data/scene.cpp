@@ -16,7 +16,7 @@ void kb::Scene::draw() {
     return;
 }
 
-char kb::Scene::destroy() {
+void kb::Scene::destroy() {
     free(id_scene);
     id_scene = new kb::SceneMainMenu;
     id_scene->init(app,id_scene);
