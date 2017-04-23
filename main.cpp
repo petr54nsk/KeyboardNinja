@@ -18,6 +18,12 @@ int main() {
     scene_game = new kb::SceneGame;
     scene_game->init(&app);
 
+    scene_game = new kb::SceneTableLead;
+    scene_table_lead->init(&app);
+
+    scene_game = new kb::SceneInputLead;
+    scene_input_lead->init(&app);
+
     scene = scene_main_menu;
 
     while (app.isOpen())
