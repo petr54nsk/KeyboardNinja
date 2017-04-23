@@ -3,11 +3,12 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "data/scene.cpp"
+#include <string>
 
 using namespace std;
 
 int main() {
-    sf::RenderWindow app(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "KeyboardNinja");
+    sf::RenderWindow app(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "KeyboardNinja", sf::Style::Titlebar | sf::Style::Close);
 
     app.setFramerateLimit(60);
 

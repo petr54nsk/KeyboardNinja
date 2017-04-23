@@ -23,7 +23,6 @@ void kb::Scene::draw() {
 void kb::Scene::destroy() {
     return;
 }
-
 //Реализация остальных сцен
 #include "scene_game.cpp"
 #include "scene_main_menu.cpp"
