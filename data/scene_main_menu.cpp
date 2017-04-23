@@ -32,21 +32,24 @@ char kb::SceneMainMenu::step() {
 
     // Смена сцены при нажатии
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        destroy(); // Дефолтная функция закрытия сцены
-        return 1;
-    }
-if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-{ 
-    if(sf::Mouse::getPosition(*app).x > 300 && sf::Mouse::getPosition(*app).x <890 && sf::Mouse::getPosition(*app).y > 213 && sf::Mouse::getPosition(*app).y < 312){
-        destroy(); // Дефолтная функция закрытия сцены
-        return 1;   
-    }
-    if(sf::Mouse::getPosition(*app).x > 300 && sf::Mouse::getPosition(*app).x <890 && sf::Mouse::getPosition(*app).y > 326 && sf::Mouse::getPosition(*app).y < 426){
-        app->close(); // Функция закрытия окна
+        destroy(scene_game); // Дефолтная функция закрытия сцены
         return 1;
     }
 
-    return 0;}
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        if(sf::Mouse::getPosition(*app).x > 300 && sf::Mouse::getPosition(*app).x <890 && sf::Mouse::getPosition(*app).y > 213 && sf::Mouse::getPosition(*app).y < 312){
+            destroy(scene_game); // Дефолтная функция закрытия сцены
+            return 1;
+        }
+        if(sf::Mouse::getPosition(*app).x > 300 && sf::Mouse::getPosition(*app).x <890 && sf::Mouse::getPosition(*app).y > 326 && sf::Mouse::getPosition(*app).y < 426){
+            app->close(); // Функция закрытия окна
+            return 1;
+        }
+
+    }
+
+    return 0;
 }
 
 /* Функция для вывода информации на экран. Выполняется как и Step на каждой
@@ -57,7 +60,7 @@ void kb::SceneMainMenu::draw() {
 }
 
 /* Функция закрытия (смены) сцены */
-void kb::SceneMainMenu::destroy() {
+void kb::SceneMainMenu::destroy(Scene* next_scene) {
     // Очистка памяти
 //    delete (font);
 //    delete (text);
@@ -66,7 +69,7 @@ void kb::SceneMainMenu::destroy() {
     delete (image_index);
 
     // Смена сцены
-    scene = scene_game;
+    scene = next_scene;
     scene->init(app);
     return;
 }

@@ -51,7 +51,7 @@ char kb::SceneGame::step() {
 
     // Смена сцены при нажатии
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        destroy();
+        destroy(scene_main_menu);
         return 1;
     }
 
@@ -65,12 +65,12 @@ void kb::SceneGame::draw() {
 }
 
 // DESTROY =====================================================================
-void kb::SceneGame::destroy() {
+void kb::SceneGame::destroy(Scene* next_scene) {
     delete (image_texture);
     delete (image_index);
     fclose (words_file);
 
-    scene = scene_main_menu;
+    scene = next_scene;
     scene->init(app);
     return;
 }
