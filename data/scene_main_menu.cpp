@@ -10,16 +10,16 @@ bool kb::SceneMainMenu::init(sf::RenderWindow* app) {
     this->app = app;
 
     // Инициализация текста
-    font = new sf::Font;
-    font->loadFromFile("graphics/font.ttf");
+ //   font = new sf::Font;
+ //   font->loadFromFile("graphics/font.ttf");
 
-    text = new sf::Text("Main Menu",*font,26);
-    text->setPosition(200, 20);
-    text->setColor(sf::Color::White);
+ //   text = new sf::Text("Main Menu",*font,26);
+ //   text->setPosition(200, 20);
+ //   text->setColor(sf::Color::White);
 
     // Инициализация изображения
     image_texture = new sf::Texture;
-    image_texture->loadFromFile("graphics/image.png");
+    image_texture->loadFromFile("graphics/menu.png");
     image_index = new sf::Sprite(*image_texture);
     image_index->setTexture(*image_texture);
 
@@ -35,14 +35,23 @@ char kb::SceneMainMenu::step() {
         destroy(); // Дефолтная функция закрытия сцены
         return 1;
     }
+if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+{ 
+    if(sf::Mouse::getPosition(*app).x > 300 && sf::Mouse::getPosition(*app).x <890 && sf::Mouse::getPosition(*app).y > 213 && sf::Mouse::getPosition(*app).y < 312){
+        destroy(); // Дефолтная функция закрытия сцены
+        return 1;   
+    }
+    if(sf::Mouse::getPosition(*app).x > 300 && sf::Mouse::getPosition(*app).x <890 && sf::Mouse::getPosition(*app).y > 326 && sf::Mouse::getPosition(*app).y < 426){
+        app->close(); // Функция закрытия окна
+        return 1;
+    }
 
-    return 0;
+    return 0;}
 }
 
 /* Функция для вывода информации на экран. Выполняется как и Step на каждой
 итерации главного цикла*/
 void kb::SceneMainMenu::draw() {
-    app->draw(*text);        // Вывод текста
     app->draw(*image_index); // Зачем я это пишу? Всё очевидно
     return;
 }
@@ -50,8 +59,8 @@ void kb::SceneMainMenu::draw() {
 /* Функция закрытия (смены) сцены */
 void kb::SceneMainMenu::destroy() {
     // Очистка памяти
-    delete (font);
-    delete (text);
+//    delete (font);
+//    delete (text);
 
     delete (image_texture);
     delete (image_index);
