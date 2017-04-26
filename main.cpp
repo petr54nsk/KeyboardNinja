@@ -16,7 +16,7 @@ int main() {
         scene->step();
         app.display();
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) app.close();
+        //if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) app.close();
     }
     return 0;
 }
