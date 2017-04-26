@@ -3,6 +3,7 @@ bool kb::SceneInputLead::init(sf::RenderWindow* app) {
 }
 
 char kb::SceneInputLead::step() {
+    eventProc(); // Обработчик событий
     return 0;
 }
 

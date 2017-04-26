@@ -10,6 +10,7 @@ private:
 
 protected:
     sf::RenderWindow* app;
+    virtual void eventProc();
 
 public:
     virtual bool init(sf::RenderWindow* app);

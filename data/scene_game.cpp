@@ -6,6 +6,15 @@
 bool kb::SceneGame::init(sf::RenderWindow* app) {
     this->app = app;
 
+    font = new sf::Font;
+    font->loadFromFile("graphics/font.TTF");
+
+    text = new sf::Text(std::wstring(L"Хуй!"),*font,26);
+    text->setPosition(200, 20);
+    text->setColor(sf::Color::White);
+
+    //text->setString(str);
+
     image_texture = new sf::Texture;
     image_texture->loadFromFile("graphics/image.png");
     image_index = new sf::Sprite(*image_texture);
@@ -48,6 +57,7 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
 
 // STEP ========================================================================
 char kb::SceneGame::step() {
+    eventProc(); // Обработчик событий
 
     // Смена сцены при нажатии
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
@@ -61,6 +71,7 @@ char kb::SceneGame::step() {
 // DRAW ========================================================================
 void kb::SceneGame::draw() {
     app->draw(*image_index);
+    app->draw(*text);
     return;
 }
 

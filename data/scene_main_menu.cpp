@@ -13,7 +13,7 @@ bool kb::SceneMainMenu::init(sf::RenderWindow* app) {
  //   font = new sf::Font;
  //   font->loadFromFile("graphics/font.ttf");
 
- //   text = new sf::Text("Main Menu",*font,26);
+ //   text = new sf::Text("Текст",*font,26);
  //   text->setPosition(200, 20);
  //   text->setColor(sf::Color::White);
 
@@ -29,6 +29,7 @@ bool kb::SceneMainMenu::init(sf::RenderWindow* app) {
 /* Шаг. Функция предназначена для отделения вычислений от вывода информации
 на экран */
 char kb::SceneMainMenu::step() {
+    eventProc(); // Обработчик событий
 
     // Смена сцены при нажатии
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {

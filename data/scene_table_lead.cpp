@@ -3,6 +3,7 @@ bool kb::SceneTableLead::init(sf::RenderWindow* app) {
 }
 
 char kb::SceneTableLead::step() {
+    eventProc(); // Обработчик событий
     return 0;
 }
 

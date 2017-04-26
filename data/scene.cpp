@@ -1,17 +1,15 @@
-#ifndef SCENE_
-#define SCENE_
-
 #include "scene.hpp"
 #include "scene_main_menu.hpp"
 #include "scene_game.hpp"
 #include "scene_table_lead.hpp"
 #include "scene_input_lead.hpp"
 
-kb::Scene *scene;
-kb::SceneMainMenu *scene_main_menu;
-kb::SceneGame *scene_game;
-kb::SceneTableLead *scene_table_lead;
-kb::SceneInputLead *scene_input_lead;
+// GLOBAL VARIABLES
+kb::Scene *scene;                     // глобальный указатель на текущую сцену
+kb::SceneMainMenu *scene_main_menu;   // Main Menu
+kb::SceneGame *scene_game;            // Game Scene
+kb::SceneTableLead *scene_table_lead; // Table Leaders
+kb::SceneInputLead *scene_input_lead; // Input new Leader
 
 //Основной интерфейс класса
 bool kb::Scene::init(sf::RenderWindow* app) {
@@ -30,10 +28,19 @@ void kb::Scene::destroy(Scene* scene_next) {
     return;
 }
 
+void kb::Scene::eventProc() {
+    sf::Event event;
+    while (app->pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+            app->close();
+    }
+
+    return;
+}
+
 //Реализация остальных сцен
 #include "scene_game.cpp"
 #include "scene_main_menu.cpp"
 #include "scene_table_lead.cpp"
 #include "scene_input_lead.cpp"
-
-#endif
