@@ -2,7 +2,7 @@
 #define MAIN_DEF
 
 #include <iostream>
-#include <string>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include "data/scene.cpp"
 

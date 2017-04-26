@@ -12,7 +12,7 @@ main.o: main.cpp
 	$(GCC) -c -o main.o main.cpp
 
 app: main.o
-	$(GCC) $(SFMLFLAGS) -o $(APPNAME) main.o 
+	$(GCC) $(SFMLFLAGS) -o $(APPNAME) main.o
 
 run: $(APPNAME)
 	 ./$(APPNAME)
