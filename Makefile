@@ -19,9 +19,9 @@ run: $(APPNAME)
 
 romantest:
 	g++ data/tabl.cpp -o bin/tabltest -lsfml-graphics -lsfml-window -lsfml-system -std=c++11
-	cp -f resources/textures/background_bottom.png bin/background_bottom.png
-	cp -f resources/textures/background_middle.png bin/background_middle.png
-	cp -f resources/textures/background_top.png bin/background_top.png
-	cp -f resources/textures/tabl.png bin/tabl.png
-	cp -f resources/textures/tablhead.png bin/tablhead.png
-	cp -f resources/textures/tablnohead2.png bin/tablnohead2.png
+	cp -f graphics/background_bottom.png bin/background_bottom.png
+	cp -f graphics/background_middle.png bin/background_middle.png
+	cp -f graphics/background_top.png bin/background_top.png
+	cp -f graphics/tabl.png bin/tabl.png
+	cp -f graphics/tablhead.png bin/tablhead.png
+	cp -f graphics/tablnohead2.png bin/tablnohead2.png
