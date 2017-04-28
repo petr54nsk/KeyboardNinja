@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 int const WINDOW_W = 1200;
@@ -37,9 +38,14 @@ results *readFileResult();
 
 bool tablWindow();
 
+std::string convToString(int number);
+
 int main(int argc, char *argv[]) {
 	if(argc - 1) {
-		if(!strcmp(argv[1], "new")) createFileResult();
+		if(!strcmp(argv[1], "new"))  {
+			createFileResult();
+			std::cout << "new WORK!!!";
+		}
 		if(!strcmp(argv[1], "start")) tablWindow();
 	}
 }
@@ -138,10 +144,63 @@ bool tablWindow() {
 	Rect tablnohead_rect;
 	tablnohead_rect.x = 300;
 	tablnohead_rect.y = 250 + (((NUMBERS / 2) - 1) * 100);
+	sf::Text name[NUMBERS + 1];
+	sf::Text numb[NUMBERS + 1];
+	sf::Text score[NUMBERS + 1];
+	Rect name_rect[NUMBERS + 1];
+	Rect numb_rect[NUMBERS + 1];
+	Rect score_rect[NUMBERS + 1];
+	results *res = readFileResult();
+	sf::Color a4(164, 164, 164);
+	sf::Color d0(208, 208, 208);
+	sf::Font font;
+	std::cout << res[1];
+	std::cout << res[2];
+	numb[0].setString("Numb");
+	name[0].setString("Name");
+	score[0].setString("MMR");
+	font.loadFromFile("radiance.woff");
+	numb[0].setColor(a4);
+	name[0].setColor(a4);
+	score[0].setColor(a4);
+	numb_rect[0].x = 315;
+	numb_rect[0].y = 203;
+	name_rect[0].x = 405;
+	name_rect[0].y = 203;
+	score_rect[0].x = 790;
+	score_rect[0].y = 203;
+	numb[0].setFont(font);
+	name[0].setFont(font);
+	score[0].setFont(font);
+	for(int i = 1; i < NUMBERS + 1; i++) {
+		numb[i].setString(convToString(i));
+		name[i].setString(res[i - 1].name);
+		score[i].setString(convToString(res[i - 1].score));
+		numb[i].setColor(a4);
+		name[i].setColor(d0);
+		score[i].setColor(a4);
+		numb[i].setCharacterSize(30);
+		name[i].setCharacterSize(30);
+		score[i].setCharacterSize(30);
+		numb[i].setFont(font);
+		name[i].setFont(font);
+		score[i].setFont(font);
+		numb_rect[i].x = 345;
+		numb_rect[i].y = 203 + (i * 50);
+		name_rect[i].x = 405;
+		name_rect[i].y = 203 + (i * 50);
+		score_rect[i].x = 800;
+		score_rect[i].y = 203 + (i * 50);
+	}
 	sf::Event event;
 	while(window.isOpen()) {
 		window.clear();
 		window.pollEvent(event);
+		for(int i = 0; i < NUMBERS + 1; i++) {
+			numb[i].setPosition(sf::Vector2f(numb_rect[i].x, numb_rect[i].y));
+			score[i].setPosition(sf::Vector2f(score_rect[i].x, score_rect[i].y));
+			name[i].setPosition(sf::Vector2f(name_rect[i].x, name_rect[i].y));
+		}
 		background_top_sprite.setPosition(sf::Vector2f(background_top_rect.x, background_top_rect.y));
 		if(NUMBERS > 8) background_middle_sprite.setPosition(sf::Vector2f(background_middle_rect.x, background_middle_rect.y));
 		background_bottom_sprite.setPosition(sf::Vector2f(background_bottom_rect.x, background_bottom_rect.y));
@@ -156,6 +215,11 @@ bool tablWindow() {
 			tablhead_rect.y -= 10;
 			tabl_rect.y -= 10;
 			tablnohead_rect.y -= 10;
+			for(int i = 0; i < NUMBERS + 1; i++) {
+				numb_rect[i].y -= 10;
+				score_rect[i].y -= 10;
+				name_rect[i].y -= 10;
+			}
 		}
 		if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W && background_top_rect.y < 0) {
 			background_middle_rect.y += 10;
@@ -164,6 +228,11 @@ bool tablWindow() {
 			tablhead_rect.y += 10;
 			tabl_rect.y += 10;
 			tablnohead_rect.y += 10;
+			for(int i = 0; i < NUMBERS + 1; i++) {
+				numb_rect[i].y += 10;
+				score_rect[i].y += 10;
+				name_rect[i].y += 10;
+			}
 		}
 		window.draw(background_top_sprite);
 		if(NUMBERS > 8) window.draw(background_middle_sprite);
@@ -171,8 +240,19 @@ bool tablWindow() {
 		window.draw(tablhead_sprite);
 		window.draw(tabl_sprite);
 		window.draw(tablnohead_sprite);
+		for(int i = 0; i < NUMBERS + 1; i++) {
+			window.draw(numb[i]);
+			window.draw(score[i]);
+			window.draw(name[i]);
+		}
 		window.display();
 	}
 	return 0;
 }
 
+std::string convToString(int number)
+{
+	std::stringstream ss;
+	ss << number;
+	return ss.str();
+}
