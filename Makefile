@@ -1,5 +1,5 @@
 GCC       =  g++
-FLAGS	  =  -Wall
+FLAGS	  =  -Wall 
 SFMLFLAGS =  -lsfml-graphics -lsfml-window -lsfml-system
 APPNAME   =  application
 
@@ -10,10 +10,10 @@ clean:
 	rm -r bin
 
 main.o: main.cpp
-	$(GCC) -c -o main.o main.cpp
+	$(GCC) -c -o main.o main.cpp -std=c++11
 
 app: main.o
-	$(GCC) $(SFMLFLAGS) -o $(APPNAME) main.o 
+	$(GCC) $(SFMLFLAGS) -o $(APPNAME) main.o -std=c++11
 
 run: $(APPNAME)
 	 ./$(APPNAME)

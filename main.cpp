@@ -6,7 +6,7 @@ int main() {
 
     //Инициализация сцен
     initAllScenes(app);
-    scene = scene_main_menu;
+    scene = scene_table_lead;
 
     while (app.isOpen())
     {
@@ -27,7 +27,7 @@ int initAllScenes(sf::RenderWindow &app) {  // Рома, доволен? Адр�
     scene_game = new kb::SceneGame;
     scene_game->init(&app);
 
-    scene_table_lead = new kb::SceneTableLead;
+    scene_table_lead = new SceneTableLead;
     scene_table_lead->init(&app);
 
     scene_input_lead = new kb::SceneInputLead;

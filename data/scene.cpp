@@ -8,7 +8,7 @@
 kb::Scene *scene;                     // глобальный указатель на текущую сцену
 kb::SceneMainMenu *scene_main_menu;   // Main Menu
 kb::SceneGame *scene_game;            // Game Scene
-kb::SceneTableLead *scene_table_lead; // Table Leaders
+SceneTableLead *scene_table_lead; // Table Leaders
 kb::SceneInputLead *scene_input_lead; // Input new Leader
 
 //Основной интерфейс класса
