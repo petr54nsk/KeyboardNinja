@@ -7,6 +7,7 @@ all: app
 
 clean:
 	rm -rf *.o
+	rm -r bin
 
 main.o: main.cpp
 	$(GCC) -c -o main.o main.cpp
@@ -18,6 +19,7 @@ run: $(APPNAME)
 	 ./$(APPNAME)
 
 romantest:
+	mkdir -p bin
 	g++ data/tabl.cpp -o bin/tabltest -lsfml-graphics -lsfml-window -lsfml-system -std=c++11
 	cp -f graphics/background_bottom.png bin/background_bottom.png
 	cp -f graphics/background_middle.png bin/background_middle.png
@@ -25,3 +27,4 @@ romantest:
 	cp -f graphics/tabl.png bin/tabl.png
 	cp -f graphics/tablhead.png bin/tablhead.png
 	cp -f graphics/tablnohead2.png bin/tablnohead2.png
+	cp -f graphics/radiance.woff bin/radiance.woff
