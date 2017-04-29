@@ -1,5 +1,5 @@
-bool SceneTableLead::init(sf::RenderWindow &app) {
-	window = app;
+bool SceneTableLead::init(sf::RenderWindow & app) {
+	window = &app;
 	background_top_texture.loadFromFile("background_top.png");
 	background_top_sprite.setTexture(background_top_texture);
 	if(NUMBERS <= 8) background_top_sprite.setTextureRect(sf::IntRect(0, 0, 1200, 300 + ((NUMBERS - 2) / 2) * 100));
@@ -83,8 +83,8 @@ char SceneTableLead::step() {
 }
 
 void SceneTableLead::draw() {
-	window.clear();
-	window.pollEvent(event);
+	window->clear();
+	window->pollEvent(event);
 	for(int i = 0; i < NUMBERS + 1; i++) {
 		numb[i].setPosition(sf::Vector2f(numb_rect[i].x, numb_rect[i].y));
 		score[i].setPosition(sf::Vector2f(score_rect[i].x, score_rect[i].y));
@@ -96,7 +96,7 @@ void SceneTableLead::draw() {
 	tablhead_sprite.setPosition(sf::Vector2f(tablhead_rect.x, tablhead_rect.y));
 	tabl_sprite.setPosition(sf::Vector2f(tabl_rect.x, tabl_rect.y));
 	tablnohead_sprite.setPosition(sf::Vector2f(tablnohead_rect.x, tablnohead_rect.y));
-	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) window.close(); //destroy();
+	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) window->close(); //destroy();
 	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S && background_bottom_rect.y > 600 - 300) {
 		background_middle_rect.y -= 10;
 		background_top_rect.y -= 10;
@@ -123,18 +123,18 @@ void SceneTableLead::draw() {
 			name_rect[i].y += 10;
 		}
 	}
-	window.draw(background_top_sprite);
-	if(NUMBERS > 8) window.draw(background_middle_sprite);
-	window.draw(background_bottom_sprite);
-	window.draw(tablhead_sprite);
-	window.draw(tabl_sprite);
-	window.draw(tablnohead_sprite);
+	window->draw(background_top_sprite);
+	if(NUMBERS > 8) window->draw(background_middle_sprite);
+	window->draw(background_bottom_sprite);
+	window->draw(tablhead_sprite);
+	window->draw(tabl_sprite);
+	window->draw(tablnohead_sprite);
 	for(int i = 0; i < NUMBERS + 1; i++) {
-		window.draw(numb[i]);
-		window.draw(score[i]);
-		window.draw(name[i]);
+		window->draw(numb[i]);
+		window->draw(score[i]);
+		window->draw(name[i]);
 	}
-	window.display();
+	window->display();
     return;
 }
 

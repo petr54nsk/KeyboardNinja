@@ -5,14 +5,13 @@ int main() {
     app.setFramerateLimit(60);
 
     //Инициализация сцен
-    initAllScenes(app);
-    scene = scene_table_lead;
+    //initAllScenes(app);
 
     while (app.isOpen())
     {
         app.clear();
-        scene->draw();
-        scene->step();
+        //scene_table_lead->draw();
+        //scene_table_lead->step();
         app.display();
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) app.close();
@@ -28,9 +27,14 @@ int initAllScenes(sf::RenderWindow &app) {  // Рома, доволен? Адр�
     scene_game->init(&app);
 
     scene_table_lead = new SceneTableLead;
-    scene_table_lead->init(&app);
+    scene_table_lead->init(app);
 
     scene_input_lead = new kb::SceneInputLead;
     scene_input_lead->init(&app);
     return 0;
 }
+
+#include "data/scene_game.cpp"
+#include "data/scene_main_menu.cpp"
+#include "data/scene_table_lead.cpp"
+#include "data/scene_input_lead.cpp"

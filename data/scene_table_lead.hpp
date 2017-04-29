@@ -1,22 +1,25 @@
+struct results {
+	std::string name;
+	int score;
+};
+
+std::istream  & operator>>(std::istream & is, results & res) {
+	is >> res.name >> res.score;
+	return is;
+}
+
+std::ostream & operator<<(std::ostream & out, results & res) {
+	out << res.name << " " << res.score << std::endl;
+	return out;
+}
+
+
 class SceneTableLead{
 private:
 	struct Rect {
 		int x;
 		int y;
 	};
-	struct results {
-		std::string name;
-		int score;
-	};
-	std::istream  & operator>>(std::istream & is, results & res) {
-		is >> res.name >> res.score;
-		return is;
-	}
-
-	std::ostream & operator<<(std::ostream & out, results & res) {
-		out << res.name << " " << res.score << std::endl;
-		return out;
-	}
 
 	void createFileResult();
 
@@ -31,7 +34,7 @@ private:
 	static int const WINDOW_W = 1200;
 	static int const WINDOW_H = 600;
 	static int const NUMBERS = 30;
-	sf::RenderWindow window;
+	sf::RenderWindow *window;
 	sf::Texture background_top_texture;
 	sf::Texture background_middle_texture;
 	sf::Texture background_bottom_texture;
@@ -56,16 +59,10 @@ private:
 	Rect name_rect[NUMBERS + 1];
 	Rect numb_rect[NUMBERS + 1];
 	Rect score_rect[NUMBERS + 1];
-	sf::Text name[NUMBERS + 1];
-	sf::Text numb[NUMBERS + 1];
-	sf::Text score[NUMBERS + 1];
-	Rect name_rect[NUMBERS + 1];
-	Rect numb_rect[NUMBERS + 1];
-	Rect score_rect[NUMBERS + 1];
 	sf::Event event;
     void destroy();
 public:
-    bool init(sf::RenderWindow &app);
+    bool init(sf::RenderWindow & app);
     char step();
     void draw();
 };

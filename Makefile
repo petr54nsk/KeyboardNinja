@@ -10,10 +10,10 @@ clean:
 	rm -r bin
 
 main.o: main.cpp
-	$(GCC) -c -o main.o main.cpp -std=c++11
+	$(GCC) -c -o main.o main.cpp 
 
 app: main.o
-	$(GCC) $(SFMLFLAGS) -o $(APPNAME) main.o -std=c++11
+	$(GCC) $(SFMLFLAGS) -o $(APPNAME) main.o 
 
 run: $(APPNAME)
 	 ./$(APPNAME)
