@@ -1,6 +1,4 @@
-/*
-Сцена игры
-*/
+#include "scene_game/button.cpp"
 
 // INIT ========================================================================
 bool kb::SceneGame::init(sf::RenderWindow* app) {

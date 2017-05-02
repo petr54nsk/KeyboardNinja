@@ -9,6 +9,20 @@ private:
     void eventProc();
     bool checkPressedKey(sf::Keyboard::Key key, wchar_t ch);
 
+    class Button {
+    private:
+        Button *id_next;
+        int x,y,dx,dy;
+        bool active;
+        wchar_t letter;
+        sf::Keyboard::Key letter_key;
+    public:
+        Button(wchar_t, Button*);
+        ~Button();
+        int keyCheck(sf::Keyboard::Key);
+        int step();
+    };
+
     sf::Sprite *image_index;
     sf::Texture* image_texture;
 
