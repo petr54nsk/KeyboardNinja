@@ -14,7 +14,7 @@ std::ostream & operator<<(std::ostream & out, results & res) {
 }
 
 
-class SceneTableLead{
+class SceneTableLead: public Scene {
 private:
 	struct Rect {
 		int x;

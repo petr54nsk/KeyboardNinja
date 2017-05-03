@@ -43,3 +43,4 @@ void kb::Scene::eventProc() {
 #include "scene_game.cpp"
 #include "scene_main_menu.cpp"
 #include "scene_input_lead.cpp"
+#include "scene_table_lead.cpp"
