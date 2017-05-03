@@ -41,13 +41,14 @@ bool tablWindow();
 std::string convToString(int number);
 
 int main(int argc, char *argv[]) {
-	if(argc - 1) {
+	/*if(argc - 1) {
 		if(!strcmp(argv[1], "new"))  {
 			createFileResult();
 			std::cout << "new WORK!!!";
 		}
 		if(!strcmp(argv[1], "start")) tablWindow();
-	}
+	}*/
+	tablWindow();
 }
 
 bool addNewResult(results res[], results new_res) {

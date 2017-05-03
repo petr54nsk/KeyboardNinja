@@ -30,9 +30,6 @@ private:
 	results *readFileResult();
 
 	std::string convToString(int number);
-
-	static int const WINDOW_W = 1200;
-	static int const WINDOW_H = 600;
 	static int const NUMBERS = 30;
 	sf::RenderWindow *window;
 	sf::Texture background_top_texture;
@@ -60,6 +57,7 @@ private:
 	Rect numb_rect[NUMBERS + 1];
 	Rect score_rect[NUMBERS + 1];
 	sf::Event event;
+	sf::Font font;
     void destroy();
 public:
     bool init(sf::RenderWindow & app);

@@ -1,4 +1,4 @@
-bool SceneTableLead::init(sf::RenderWindow & app) {
+bool SceneTableLead::init(sf::RenderWindow &app) {
 	window = &app;
 	background_top_texture.loadFromFile("background_top.png");
 	background_top_sprite.setTexture(background_top_texture);
@@ -34,7 +34,6 @@ bool SceneTableLead::init(sf::RenderWindow & app) {
 	results *res = readFileResult();
 	sf::Color a4(164, 164, 164);
 	sf::Color d0(208, 208, 208);
-	sf::Font font;
 	std::cout << res[1];
 	std::cout << res[2];
 	numb[0].setString("Numb");
@@ -53,6 +52,10 @@ bool SceneTableLead::init(sf::RenderWindow & app) {
 	numb[0].setFont(font);
 	name[0].setFont(font);
 	score[0].setFont(font);
+	numb[0].setCharacterSize(30);
+	name[0].setCharacterSize(30);
+	score[0].setCharacterSize(30);
+	std::cout << "56" << std::endl;
 	for(int i = 1; i < NUMBERS + 1; i++) {
 		numb[i].setString(convToString(i));
 		name[i].setString(res[i - 1].name);
@@ -73,7 +76,6 @@ bool SceneTableLead::init(sf::RenderWindow & app) {
 		score_rect[i].x = 800;
 		score_rect[i].y = 203 + (i * 50);
 	}
-	sf::Event event;
     return 0;
 }
 
@@ -83,7 +85,7 @@ char SceneTableLead::step() {
 }
 
 void SceneTableLead::draw() {
-	window->clear();
+//	window->clear();
 	window->pollEvent(event);
 	for(int i = 0; i < NUMBERS + 1; i++) {
 		numb[i].setPosition(sf::Vector2f(numb_rect[i].x, numb_rect[i].y));
@@ -134,7 +136,7 @@ void SceneTableLead::draw() {
 		window->draw(score[i]);
 		window->draw(name[i]);
 	}
-	window->display();
+//	window->display();
     return;
 }
 
