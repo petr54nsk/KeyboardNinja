@@ -7,8 +7,8 @@
 // GLOBAL VARIABLES
 kb::Scene *scene;                     // глобальный указатель на текущую сцену
 kb::SceneMainMenu *scene_main_menu;   // Main Menu
-kb::SceneGame *scene_game;            // Game Scene
-kb::SceneTableLead *scene_table_lead; // Table Leaders
+kb::SceneGame *scene_game;           // Game Scene
+SceneTableLead *scene_table_lead; // Table Leaders
 kb::SceneInputLead *scene_input_lead; // Input new Leader
 
 //Основной интерфейс класса
@@ -42,5 +42,4 @@ void kb::Scene::eventProc() {
 //Реализация остальных сцен
 #include "scene_game.cpp"
 #include "scene_main_menu.cpp"
-#include "scene_table_lead.cpp"
 #include "scene_input_lead.cpp"

@@ -1,11 +1,15 @@
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 #include "data/scene.cpp"
-// #include "main.hpp"
+int const WINDOW_W = 1200;
+int const WINDOW_H = 600;
+// int initAllScenes(sf::RenderWindow &app);
 
 int main() {
-    sf::RenderWindow app(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "KeyboardNinja", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow app(sf::VideoMode(WINDOW_W, WINDOW_H), "KeyboardNinja", sf::Style::Titlebar | sf::Style::Close);
     app.setFramerateLimit(60);
 
     //Инициализация сцен
@@ -25,11 +29,12 @@ int main() {
 
     scene = scene_main_menu;
 
+
     while (app.isOpen())
     {
         app.clear();
-        scene->draw();
-        scene->step();
+        scene_table_lead->draw();
+        scene_table_lead->step();
         app.display();
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) app.close();
