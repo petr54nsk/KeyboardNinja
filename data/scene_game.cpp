@@ -3,7 +3,7 @@
 */
 
 // INIT ========================================================================
-bool kb::SceneGame::init(sf::RenderWindow* app) {
+bool SceneGame::init(sf::RenderWindow* app) {
     this->app = app;
 
     font = new sf::Font;
@@ -56,7 +56,7 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
 }
 
 // STEP ========================================================================
-char kb::SceneGame::step() {
+char SceneGame::step() {
     eventProc(); // Обработчик событий
 
     // Смена сцены при нажатии
@@ -69,14 +69,14 @@ char kb::SceneGame::step() {
 }
 
 // DRAW ========================================================================
-void kb::SceneGame::draw() {
+void SceneGame::draw() {
     app->draw(*image_index);
     app->draw(*text);
     return;
 }
 
 // DESTROY =====================================================================
-void kb::SceneGame::destroy(Scene* next_scene) {
+void SceneGame::destroy(Scene* next_scene) {
     delete (image_texture);
     delete (image_index);
     fclose (words_file);

@@ -15,7 +15,7 @@ int main() {
     //Инициализация сцен
     // initAllScenes(app);
 
-    scene_main_menu = new kb::SceneMainMenu;
+    scene_main_menu = new SceneMainMenu;
     scene_main_menu->init(&app);
 
 //    scene_game = new kb::SceneGame;
@@ -24,10 +24,10 @@ int main() {
     scene_table_lead = new SceneTableLead;
     scene_table_lead->init(app);
 
-    scene_input_lead = new kb::SceneInputLead;
+    scene_input_lead = new SceneInputLead;
     scene_input_lead->init(&app);
 
-    scene = scene_table_lead;
+	scene = scene_table_lead;
 
 
     while (app.isOpen())

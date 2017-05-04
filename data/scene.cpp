@@ -5,30 +5,30 @@
 #include "scene_input_lead.hpp"
 
 // GLOBAL VARIABLES
-kb::Scene *scene;                     // глобальный указатель на текущую сцену
-kb::SceneMainMenu *scene_main_menu;   // Main Menu
-kb::SceneGame *scene_game;           // Game Scene
+Scene *scene;                     // глобальный указатель на текущую сцену
+SceneMainMenu *scene_main_menu;   // Main Menu
+SceneGame *scene_game;           // Game Scene
 SceneTableLead *scene_table_lead; // Table Leaders
-kb::SceneInputLead *scene_input_lead; // Input new Leader
+SceneInputLead *scene_input_lead; // Input new Leader
 
 //Основной интерфейс класса
-bool kb::Scene::init(sf::RenderWindow* app) {
+bool Scene::init(sf::RenderWindow* app) {
     return 0;
 }
 
-char kb::Scene::step() {
+char Scene::step() {
     return 0;
 }
 
-void kb::Scene::draw() {
+void Scene::draw() {
     return;
 }
 
-void kb::Scene::destroy(Scene* scene_next) {
+void Scene::destroy(Scene* scene_next) {
     return;
 }
 
-void kb::Scene::eventProc() {
+void Scene::eventProc() {
     sf::Event event;
     while (app->pollEvent(event))
     {

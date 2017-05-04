@@ -1,16 +1,16 @@
-bool kb::SceneInputLead::init(sf::RenderWindow* app) {
+bool SceneInputLead::init(sf::RenderWindow* app) {
     return 0;
 }
 
-char kb::SceneInputLead::step() {
+char SceneInputLead::step() {
     eventProc(); // Обработчик событий
     return 0;
 }
 
-void kb::SceneInputLead::draw() {
+void SceneInputLead::draw() {
     return;
 }
 
-void kb::SceneInputLead::destroy(Scene* scene_next) {
+void SceneInputLead::destroy(Scene* scene_next) {
     return;
 }

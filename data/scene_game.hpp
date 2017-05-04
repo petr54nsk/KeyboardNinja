@@ -1,6 +1,4 @@
 // Игровая сцена ===============================================================
-namespace kb {
-
 class SceneGame : public Scene {
 private:
     sf::Sprite *image_index;
@@ -17,6 +15,4 @@ public:
     char step();
     void draw();
     void destroy(Scene*);
-};
-
 };

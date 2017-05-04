@@ -1,5 +1,4 @@
 // Сцена главного меню =========================================================
-namespace kb {
 
 class SceneMainMenu : public Scene {
 private:
@@ -17,6 +16,4 @@ public:
     char step();
     void draw();
     void destroy(Scene*);
-};
-
 };

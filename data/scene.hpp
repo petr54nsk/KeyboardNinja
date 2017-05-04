@@ -2,7 +2,6 @@
 #define SCREEN_HEIGHT 640
 #define SCREEN_WIDTH 1200
 
-namespace kb {
 
 // SCENE (BASE) ================================================================
 class Scene {
@@ -19,4 +18,3 @@ public:
     virtual void destroy(Scene*);
 };
 
-};
