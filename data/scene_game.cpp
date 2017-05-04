@@ -5,8 +5,15 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
     this->app = app;
     srand(time(0));
 
+    key_pressed = sf::Keyboard::Unknown;
+
     font = new sf::Font;
     font->loadFromFile("graphics/Rex_Bold.otf");
+
+    text_button.setPosition(200,300);
+    text_button.setFont(*font);
+    text_button.setCharacterSize(100);
+    text_button.setColor(sf::Color(25, 52, 64));
 
     text = new sf::Text(L"String",*font,26);
     text->setPosition(200, 90);
@@ -23,54 +30,21 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
     image_index->setTexture(*image_texture);
     image_index->setPosition(5, -15);
 
+    button_texture.loadFromFile("graphics/gamescene/block.png");
+    image_button.setTexture(button_texture);
+    image_button.setPosition(0,300);
+
     words_file = fopen("resources/words.txt", "rt+");
 
-    wchar_t ch;
-    sent_num = 0;
-    current_sent = 0;
-    word_num[sent_num] = 0;
-    lett_num[sent_num] = 0;
-    current_pos_text = -1;
-
-    words[0][0]=L"";
-    do {
-        ch = fgetwc(words_file);
-        switch (ch) {
-            case L' ': {
-                lett_num[sent_num]++;
-                word_num[sent_num] += 1;
-                words[sent_num][word_num[sent_num]] = L"";
-                break;
-            }
-            case L'\n': {
-                sent_num++;
-                lett_num[sent_num] = 0;
-                word_num[sent_num] = 0;
-                words[sent_num][word_num[sent_num]]=L"";
-                break;
-            }
-            case 'z': {
-                sent_num++;
-                lett_num[sent_num] = 0;
-                word_num[sent_num] = 0;
-                words[sent_num][word_num[sent_num]]=L"";
-                break;
-            }
-            default: {
-                words[sent_num][word_num[sent_num]] += ch;
-                lett_num[sent_num]++;
-                break;
-            }
-        }
-
-        // DEBAG INFO
-    } while (!feof(words_file));
+    fillStrings();
 
     for(int i=0; i < GAME_NUM_SENT; i++) {
         if (i<=sent_num) sent_array[i] = 1; else sent_array[i] = 0;
     }
     sent_array[0] = 0;
     fclose (words_file);
+
+    createButtons();
 
     return 0;
 }
@@ -86,10 +60,10 @@ void kb::SceneGame::eventProc() {
             }
             case sf::Event::KeyPressed: {
                 key_pressed = event.key.code;
-                std::cout << key_pressed << " ";
                 break;
             }
             case sf::Event::KeyReleased: {
+                key_pressed = sf::Keyboard::Unknown;
                 key_released = event.key.code;
                 break;
             }
@@ -101,19 +75,16 @@ void kb::SceneGame::eventProc() {
 
 // STEP ========================================================================
 char kb::SceneGame::step() {
-    key_pressed = key_released = sf::Keyboard::Unknown;
     eventProc(); // Обработчик событий
 
-    std::wstring outputStr = L"";
-    for(int i=0; i<=word_num[current_sent]; i++) {
-        outputStr += words[current_sent][i];
-        outputStr += L' ';
-    }
-    text->setString(outputStr);
+    text->setString(output_str[current_sent]);
+    bool is_game_over = stepButtons();
 
     int allow = 0;
-    if (checkPressedKey(key_pressed, outputStr[current_pos_text+1])) {
+    if (checkPressedKey(key_released, output_str[current_sent][current_pos_text+1])) {
         current_pos_text += 1;
+        key_released = sf::Keyboard::Unknown;
+
         if (current_pos_text > lett_num[current_sent] - 2) {
             sent_array[current_sent] = 0;
             current_pos_text = -1;
@@ -140,21 +111,27 @@ char kb::SceneGame::step() {
                 if (l_pos - 1 >= 0) l_pos--;
                 if (r_pos + 1 < sent_num) r_pos++;
             }
+
+            createButtons();
         }
     }
 
-    std::wstring inputStr = L"";
+    std::wstring input_str = L"";
     if (current_pos_text!=-1) {
         for(int i=0; i<=current_pos_text; i++) {
-            inputStr += outputStr[i];
-            //inputStr += L' ';
+            input_str += output_str[current_sent][i];
         }
     }
 
-    input_text->setString(inputStr);
+    input_text->setString(input_str);
 
     // Смена сцены при нажатии
     if (allow==2) {
+        destroy(scene_main_menu);
+        return 1;
+    }
+
+    if (is_game_over) {
         destroy(scene_main_menu);
         return 1;
     }
@@ -169,22 +146,132 @@ void kb::SceneGame::draw() {
     rect.setPosition(20, 20); //Position
     rect.setFillColor(sf::Color(82, 102, 111)); //Color
     app->draw(rect);
-    //rect.setTexture(&image1);
 
     app->draw(*image_index);
     app->draw(*text);
     app->draw(*input_text);
+
+    drawButtons();
     return;
 }
 
 // DESTROY =====================================================================
 void kb::SceneGame::destroy(Scene* next_scene) {
-    delete (image_texture);
-    delete (image_index);
-
     scene = next_scene;
     scene->init(app);
+
+    delete scene_game;
+    scene_game = new kb::SceneGame();
     return;
+}
+
+int kb::SceneGame::createButtons() {
+    Button *p;
+    int current_button_num = 0;
+    key_released = sf::Keyboard::Unknown;
+
+    if (head_button_stack) delete head_button_stack;
+    head_button_stack = NULL;
+
+    for(int i=0;i<=lett_num[current_sent];i++) {
+        p = new Button(output_str[current_sent][current_button_num++], head_button_stack, key_pressed, i);
+        head_button_stack = p;
+    }
+
+    return 0;
+}
+
+int kb::SceneGame::drawButtons() {
+    if (!head_button_stack) return 1;
+
+    Button *p = head_button_stack;
+    while (p = p->getNext()) {
+        text_button.setString(p->getChar());
+
+        sf::Vector2f pos = p->getPosition();
+        image_button.setColor(p->getColor());
+        image_button.setPosition(pos);
+        pos.x += 24;
+        pos.y -= 2;
+        text_button.setPosition(pos);
+
+        app->draw(image_button);
+        app->draw(text_button);
+    }
+    return 0;
+}
+
+int kb::SceneGame::stepButtons() {
+    if (!head_button_stack) return 1;
+
+    int passive_objects_count = 0;
+    int is_game_loose = 0;
+    const int max_allowed_objects = 3;
+
+    int move_flag = 0;
+    Button *p = head_button_stack;
+    Button *prev_id = p;
+    while (p->getNext()) {
+        prev_id = p;
+        p = p->getNext();
+        bool is_key_true = checkPressedKey(key_pressed, p->getChar());
+        bool is_release_key = checkPressedKey(key_released, p->getChar());
+        move_flag += p->process(key_pressed, is_key_true, is_release_key, prev_id);
+        passive_objects_count += p->step();
+    }
+
+    if (move_flag) {
+        p = head_button_stack;
+        while (p = p->getNext()) {p->move(-move_flag,0);}
+    }
+
+    if (passive_objects_count > max_allowed_objects) is_game_loose = 1;
+
+    return is_game_loose;
+}
+
+int kb::SceneGame::clearButtons() {
+    if (!head_button_stack) return 1;
+
+    Button *p = head_button_stack;
+    Button *buffer;
+    while (p != NULL) {
+        buffer = p;
+        p = p->getNext();
+        delete buffer;
+    }
+
+    return 0;
+}
+
+bool kb::SceneGame::fillStrings() {
+    wchar_t ch;
+    sent_num = 0;
+    current_sent = 0;
+    output_str[sent_num] = L"";
+    lett_num[sent_num] = 0;
+    current_pos_text = -1;
+
+    do {
+        ch = fgetwc(words_file);
+        switch (ch) {
+            case L'\n': {
+                output_str[++sent_num]=L"";
+                break;
+            }
+            case 'z': {
+                output_str[++sent_num]=L"";
+                break;
+            }
+            default: {
+                output_str[sent_num] += ch;
+                lett_num[sent_num]++;
+                break;
+            }
+        }
+
+    } while (!feof(words_file));
+    return 0;
 }
 
 bool kb::SceneGame::checkPressedKey(sf::Keyboard::Key key, wchar_t ch) {
