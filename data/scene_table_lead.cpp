@@ -32,7 +32,7 @@ bool SceneTableLead::init(sf::RenderWindow &app) {
 	tablnohead_rect.x = 300;
 	tablnohead_rect.y = 250 + (((NUMBERS / 2) - 1) * 100);
 	results *res = readFileResult();
-	sf::Color a4(164, 164, 164);
+	sf::Color a4(41, 128, 185);
 	sf::Color d0(208, 208, 208);
 	std::cout << res[1];
 	std::cout << res[2];
