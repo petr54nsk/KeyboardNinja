@@ -22,7 +22,7 @@ int main() {
 
     while (app.isOpen())
     {
-        app.clear(sf::Color(235, 234, 255));
+        app.clear(sf::Color(236, 240, 241));
         scene->draw();
         scene->step();
         app.display();

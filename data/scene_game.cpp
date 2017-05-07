@@ -1,4 +1,6 @@
 #include "scene_game/button.cpp"
+#include "scene_game/rect.cpp"
+#include "scene_game/numb.cpp"
 
 // INIT ========================================================================
 bool kb::SceneGame::init(sf::RenderWindow* app) {
@@ -6,22 +8,35 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
     srand(time(0));
 
     key_pressed = sf::Keyboard::Unknown;
+    distance = 230;
+    distance_min = 10;
+
+    speed = 2;
+    speed_max = 25;
+
+    score = 0;
+    sents_max = 4;
+    level = 0;
+
+    rectangleShape = new Rect();
 
     font = new sf::Font;
     font->loadFromFile("graphics/Rex_Bold.otf");
 
+    //head_numb_stack = new Numb(200, 400, 25, 0,  NULL, font);
+
     text_button.setPosition(200,300);
     text_button.setFont(*font);
     text_button.setCharacterSize(100);
-    text_button.setColor(sf::Color(25, 52, 64));
+    text_button.setColor(sf::Color(45, 62, 80));
 
     text = new sf::Text(L"String",*font,26);
-    text->setPosition(200, 90);
-    text->setColor(sf::Color(25, 52, 64));
+    text->setPosition(405, 90);
+    text->setColor(sf::Color(53, 152, 219));
 
     input_text = new sf::Text(L"",*font,26);
-    input_text->setPosition(200, 90);
-    input_text->setColor(sf::Color(153, 176, 200));
+    input_text->setPosition(405, 90);
+    input_text->setColor(sf::Color(236, 240, 241));
     input_text->setStyle(sf::Text::Underlined);
 
     image_texture = new sf::Texture;
@@ -34,6 +49,10 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
     image_button.setTexture(button_texture);
     image_button.setPosition(0,300);
 
+    background_texture.loadFromFile("graphics/gamescene/background.png");
+    background_index.setTexture(background_texture);
+    background_index.setPosition(1100,0);
+
     words_file = fopen("resources/words.txt", "rt+");
 
     fillStrings();
@@ -43,6 +62,9 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
     }
     sent_array[0] = 0;
     fclose (words_file);
+    if (sent_num < sents_max) sents_max = sent_num;
+    if (!(ddistance = (distance-distance_min)/(sent_num-1))) ddistance = 1;
+    if (!(dspeed = (speed_max-speed)/(sent_num-1))) dspeed = 1;
 
     createButtons();
 
@@ -83,6 +105,7 @@ char kb::SceneGame::step() {
     int allow = 0;
     if (checkPressedKey(key_released, output_str[current_sent][current_pos_text+1])) {
         current_pos_text += 1;
+        score += 25;
         key_released = sf::Keyboard::Unknown;
 
         if (current_pos_text > lett_num[current_sent] - 2) {
@@ -112,6 +135,9 @@ char kb::SceneGame::step() {
                 if (r_pos + 1 < sent_num) r_pos++;
             }
 
+            if (++level > sents_max) allow=2;
+            if ((distance-=ddistance)<distance_min) distance = distance_min;
+            if ((speed+=dspeed)>speed_max) speed = speed_max;
             createButtons();
         }
     }
@@ -141,17 +167,45 @@ char kb::SceneGame::step() {
 
 // DRAW ========================================================================
 void kb::SceneGame::draw() {
+    rectangleShape->draw(app);
+    drawButtons();
+    app->draw(background_index);
+
     sf::RectangleShape rect;
-    rect.setSize(sf::Vector2f(1200 - 40, 150)); //Width and height
-    rect.setPosition(20, 20); //Position
-    rect.setFillColor(sf::Color(82, 102, 111)); //Color
+    rect.setSize(sf::Vector2f(790, 150)); //Width and height
+    rect.setPosition(385, 20); //Position
+    rect.setFillColor(sf::Color(45, 62, 80)); //Color
     app->draw(rect);
 
-    app->draw(*image_index);
+    rect.setSize(sf::Vector2f(355 , 150)); //Width and height 356
+    rect.setPosition(20, 20); //Position
+    rect.setFillColor(sf::Color(41, 127, 184));
+    app->draw(rect);
+
+    rect.setSize(sf::Vector2f(1160 , 50)); //Width and height 356
+    rect.setPosition(20, 570); //Position
+    rect.setFillColor(sf::Color(45, 62, 80));
+    app->draw(rect);
+
+    //app->draw(*image_index);
     app->draw(*text);
     app->draw(*input_text);
 
-    drawButtons();
+
+    sf::Text score_text(L"Score: ",*font,26);
+    score_text.setPosition(35,66);
+    score_text.setColor(sf::Color(45, 62, 80));
+    std::wstring score_str = L"Счет: ";
+    addIntToStr(&score_str,score);
+
+    score_str += L"\nУровень: ";
+    addIntToStr(&score_str,level);
+    score_str += L" из ";
+    addIntToStr(&score_str,sents_max);
+    score_text.setString(score_str);
+    app->draw(score_text);
+
+    //procNumbs();
     return;
 }
 
@@ -174,7 +228,8 @@ int kb::SceneGame::createButtons() {
     head_button_stack = NULL;
 
     for(int i=0;i<=lett_num[current_sent];i++) {
-        p = new Button(output_str[current_sent][current_button_num++], head_button_stack, key_pressed, i);
+        p = new Button(output_str[current_sent][current_button_num++],
+                       head_button_stack, key_pressed, i*distance, speed);
         head_button_stack = p;
     }
 
@@ -226,6 +281,7 @@ int kb::SceneGame::stepButtons() {
     }
 
     if (passive_objects_count > max_allowed_objects) is_game_loose = 1;
+    rectangleShape->step(passive_objects_count,speed);
 
     return is_game_loose;
 }
@@ -271,6 +327,28 @@ bool kb::SceneGame::fillStrings() {
         }
 
     } while (!feof(words_file));
+    return 0;
+}
+
+int kb::SceneGame::procNumbs() {
+    head_numb_stack->step();
+    head_numb_stack->draw(app);
+    return 0;
+}
+
+int kb::SceneGame::addIntToStr(std::wstring *str, int numb) {
+
+    if (numb) {
+        int count = 0;
+        char ch[15];
+        for (int i = numb; i>0; i/=10) {
+            ch[count++] = ((wchar_t)(i%10)+'0');
+        }
+        for (int i=count-1; i>=0; i--) {
+            *str += ch[i];
+        }
+    } else *str+='0';
+
     return 0;
 }
 

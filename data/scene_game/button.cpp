@@ -1,12 +1,12 @@
-kb::SceneGame::Button::Button(wchar_t let, Button* next, sf::Keyboard::Key key, int x_moved) {
+kb::SceneGame::Button::Button(wchar_t let, Button* next, sf::Keyboard::Key key, int x_moved, int speed) {
     id_next = next;
     letter = let;
     letter_key = key;
 
-    dx = -2;
+    dx = -speed;
     dy = 0;
-    position.x = SCREEN_WIDTH + x_moved * 160;
-    position.y = 450;
+    position.x = SCREEN_WIDTH + x_moved;
+    position.y = 200;
 
     color = sf::Color(255,255,255);
 
@@ -59,9 +59,9 @@ int kb::SceneGame::Button::process(sf::Keyboard::Key key, bool is_key_true, bool
         }
 
         if (is_key_true) {
-            color = sf::Color(255,255,0);
+            color = sf::Color(252,221,79);
         } else
-        color = sf::Color(255,0,0);
+        color = sf::Color(232,76,61);
 
         if (is_release_key) {
             prev->setNext(getNext());
@@ -85,7 +85,7 @@ int kb::SceneGame::Button::step() {
         sf::Vector2f next_position = next_object->getPosition();
         if (position.x + dx <= next_position.x + 117) place_free = 0;
     }
-    if ((position.x + dx > 0) && (place_free))
+    if ((position.x + dx > 20) && (place_free))
     position.x += dx; else is_not_move = 1;
 
     position.y -= dy;

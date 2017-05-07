@@ -29,8 +29,39 @@ private:
         int step();
         int setActive(bool);
 
-        Button(wchar_t, Button*, sf::Keyboard::Key, int);
+        Button(wchar_t, Button*, sf::Keyboard::Key, int, int);
         ~Button();
+    };
+
+    class Rect {
+    private:
+        sf::RectangleShape shape;
+        sf::Vector2f position;
+        sf::Vector2f size;
+        int r,g,b;
+        int state;
+        int alpha;
+    public:
+        Rect();
+        int step(int, int);
+        int draw(sf::RenderWindow *);
+        ~Rect();
+    };
+
+    class Numb {
+    private:
+        Numb *id_next;
+        sf::Text text;
+        std::wstring str;
+        sf::Vector2f position;
+        int dy;
+        int alpha;
+        int dalpha;
+    public:
+        Numb(int, int, int, bool, Numb*, sf::Font*);
+        int step();
+        int draw(sf::RenderWindow *);
+        ~Numb();
     };
 
     bool fillStrings();
@@ -40,13 +71,31 @@ private:
     int stepButtons();
     int clearButtons();
     int createButtons();
+    int procNumbs();
+    int addIntToStr(std::wstring*, int);
+
+    int distance;
+    int ddistance;
+    int distance_min;
+
+    int speed;
+    int dspeed;
+    int speed_max;
+
+    int score;
+    int sents_max;
+    int level;
 
     Button* head_button_stack;
+    Rect* rectangleShape;
+    Numb* head_numb_stack;
 
     sf::Sprite *image_index;
     sf::Texture* image_texture;
     sf::Sprite image_button;
     sf::Texture button_texture;
+    sf::Sprite background_index;
+    sf::Texture background_texture;
 
     FILE *words_file;
     std::wstring output_str[GAME_NUM_SENT];
