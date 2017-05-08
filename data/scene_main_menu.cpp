@@ -40,9 +40,16 @@ bool SceneMainMenu::init(sf::RenderWindow* app) {
 
 /* Шаг. Функция предназначена для отделения вычислений от вывода информации
 на экран */
-char SceneMainMenu::step() {
+void SceneMainMenu::eventProc() {
+    sf::Event event;
+    while (app->pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed){
+            app->close();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            app->close();
 
-    // Смена сцены при нажатии
 if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
     new_game->setColor(sf::Color(231, 76, 60));
 }else {new_game->setColor(sf::Color(236, 240, 241));}
@@ -58,20 +65,21 @@ if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 { 
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
         destroy(scene_game);
-        return 1;   
     }
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 338 && sf::Mouse::getPosition(*app).y < 442){
         destroy(scene_table_lead);
-        return 1;
     }
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 455 && sf::Mouse::getPosition(*app).y < 568){
         app->close(); // Функция закрытия окна
-        return 1;
-    }
-    return 0;}
+        }
+    }               
+}
+    // Смена сцены при нажатии
 
 }
 
+return;
+}
 
 /* Функция для вывода информации на экран. Выполняется как и Step на каждой
 итерации главного цикла*/
