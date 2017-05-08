@@ -41,48 +41,69 @@ bool SceneMainMenu::init(sf::RenderWindow* app) {
 /* Шаг. Функция предназначена для отделения вычислений от вывода информации
 на экран */
 void SceneMainMenu::eventProc() {
-    eventProc();
     sf::Event event;
     while (app->pollEvent(event))
     {
 
 
         if (event.type == sf::Event::Closed){
-            app->close();
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            app->close();}}}
+            app->close();}
+    }
+}
 
 char SceneMainMenu::step(){
-
-        check++;
-        if (check == 2){
-        color++;
-        if(color == 125){color = 0;}
-        check = 0;}
-                std::cout << color<<std::endl;
+    eventProc();
+    
+    if (check1==1 && color1<252 && check4==0){
+        color1+=4;}
+    if (color1==252 && check4==0){
+        check2=1;}
+    if (check2==1 && color2<252 && check4==0){
+        color2+=4;}
+    if (color2==252 && color1>0 && check4==0){
+        check1=0;color1-=4;}
+    if (color2==252 && color1==0 && check4==0){
+        check3=1;}
+    if (check3==1 && color3<252 && check4==0){
+        color3+=4;}
+    if (color2==252 && color3==252 && check4==0){
+        check2=0;}
+    if (check2==0 && color3==252 && check4==0){
+        color2-=4;}
+    if (check3==1 && color2==0 && check4==0){
+        check4=1;}
+    if (check4==1 && color2==0 && check5==0){
+        color1+=4;}
+    if (check4==1 && color1==252 && check5==0){
+        check5=1;}
+    if (check4==1 && check5==1 && color1==252 && check6==0){
+        color3-=4;}
+    if (check4==1 && check5==1 && color3==0 && check6==0){
+        check6=1;}
+    if (check4==1 && check5==1 && color3==0 && check6==1){
+        color1-=4;}
+    if (check4==1 && check5==1 && color1==0 && check6==1){
+        check1 = 1; color1 = 0; check2 = 0; color2 = 0; check3 = 0; color3 = 0; check4 = 0; check5 = 0; check6 = 0;}
+        
+    std::cout <<color1<<" "<<color2<<" "<<color3<<" "<<std::endl;
+    
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
-        new_game->setColor(sf::Color(color-50, color+50, color+100));
+        new_game->setColor(sf::Color(color1, color2, color3));
     }else {new_game->setColor(sf::Color(236, 240, 241));}
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 338 && sf::Mouse::getPosition(*app).y < 442){
-        score->setColor(sf::Color(color-50, color+50, color+100));
+        score->setColor(sf::Color(color1, color2, color3));
     }else{score->setColor(sf::Color(236, 240, 241));}
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 455 && sf::Mouse::getPosition(*app).y < 568){
-        exit1->setColor(sf::Color(color-50, color+50, color+100));
+        exit1->setColor(sf::Color(color1, color2, color3));
     }else{exit1->setColor(sf::Color(236, 240, 241));}
 
-
-if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-{ 
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){ 
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
-        destroy(scene_game);
-    }
+        destroy(scene_game);}
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 338 && sf::Mouse::getPosition(*app).y < 442){
-        destroy(scene_table_lead);
-    }
+        destroy(scene_table_lead);}
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 455 && sf::Mouse::getPosition(*app).y < 568){
-        app->close(); // Функция закрытия окна
-        }
+        app->close();} // Функция закрытия окна
     }               
 }
 
