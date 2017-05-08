@@ -1,33 +1,33 @@
 bool SceneTableLead::init(sf::RenderWindow &app) {
 	window = &app;
-	background_top_texture.loadFromFile("background_top.png");
+	background_top_texture.loadFromFile("graphics/background_top.png");
 	background_top_sprite.setTexture(background_top_texture);
 	if(NUMBERS <= 8) background_top_sprite.setTextureRect(sf::IntRect(0, 0, 1200, 300 + ((NUMBERS - 2) / 2) * 100));
 	background_top_rect.x = 0;
 	background_top_rect.y = 0;
 	if(NUMBERS > 8) {
-		background_middle_texture.loadFromFile("background_middle.png");
+		background_middle_texture.loadFromFile("graphics/background_middle.png");
 		background_middle_texture.setRepeated(true);
 		background_middle_sprite.setTexture(background_middle_texture);
 		background_middle_sprite.setTextureRect(sf::IntRect(0, 0, 1200, ((NUMBERS - 8) / 2) * 100));
 	}
 	background_middle_rect.x = 0;
 	background_middle_rect.y = 600;
-	background_bottom_texture.loadFromFile("background_bottom.png");
+	background_bottom_texture.loadFromFile("graphics/background_bottom.png");
 	background_bottom_sprite.setTexture(background_bottom_texture);
 	background_bottom_rect.x = 0;
 	background_bottom_rect.y = 600 + (((NUMBERS - 8) / 2) * 100);
-	tablhead_texture.loadFromFile("tablhead.png");
+	tablhead_texture.loadFromFile("graphics/tablhead.png");
 	tablhead_sprite.setTexture(tablhead_texture);
 	tablhead_rect.x = 300;
 	tablhead_rect.y = 200;
-	tabl_texture.loadFromFile("tabl.png");
+	tabl_texture.loadFromFile("graphics/tabl.png");
 	tabl_texture.setRepeated(true);
 	tabl_sprite.setTexture(tabl_texture);
 	tabl_sprite.setTextureRect(sf::IntRect(0, 0, 600, ((NUMBERS / 2) - 1) * 100));
 	tabl_rect.x = 300;
 	tabl_rect.y = 200 + 50;
-	tablnohead_texture.loadFromFile("tablnohead2.png");
+	tablnohead_texture.loadFromFile("graphics/tablnohead2.png");
 	tablnohead_sprite.setTexture(tablnohead_texture);
 	tablnohead_rect.x = 300;
 	tablnohead_rect.y = 250 + (((NUMBERS / 2) - 1) * 100);
@@ -39,7 +39,7 @@ bool SceneTableLead::init(sf::RenderWindow &app) {
 	numb[0].setString("Numb");
 	name[0].setString("Name");
 	score[0].setString("MMR");
-	font.loadFromFile("radiance.woff");
+	font.loadFromFile("graphics/radiance.woff");
 	numb[0].setColor(a4);
 	name[0].setColor(a4);
 	score[0].setColor(a4);

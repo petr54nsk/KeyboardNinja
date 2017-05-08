@@ -21,8 +21,7 @@ all:
 	cp -f graphics/image.png bin/graphics/image.png
 
 clean:
-	rm -rf *.o
-	rm -r bin
+	rm menu
 
 scene_table_lead.o: data/scene_table_lead.cpp
 	$(GCC) -c -o scene_table_lead.o data/scene_table_lead.cpp
