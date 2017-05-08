@@ -6,12 +6,34 @@ namespace kb {
 
 class SceneGame : public Scene {
 private:
+    class Numb {
+    private:
+        Numb *id_next;
+        Numb *id_prev;
+        sf::Text text;
+        sf::Font font;
+        std::wstring str;
+        sf::Vector2f position;
+        int dy;
+        int alpha;
+        int r,g,b;
+        int dalpha;
+    public:
+        Numb(int, int, int, bool, Numb*);
+        int step();
+        int setNext(Numb *);
+        int setPrev(Numb *);
+        Numb * getNext();
+        int draw(sf::RenderWindow *);
+        ~Numb();
+    };
 
     class Button {
     private:
         int dx,dy;
         sf::Vector2f position;
         bool active;
+        bool failed;
         wchar_t letter;
         sf::Keyboard::Key letter_key;
         sf::Color color;
@@ -25,8 +47,8 @@ private:
         int setNext(Button*);
         int move(int,int);
         int keyCheck(sf::Keyboard::Key);
-        int process(sf::Keyboard::Key, bool, bool, Button*);
-        int step();
+        int process(sf::Keyboard::Key, bool, int, Button*, Numb*);
+        int step(int &, Numb*);
         int setActive(bool);
 
         Button(wchar_t, Button*, sf::Keyboard::Key, int, int);
@@ -46,22 +68,6 @@ private:
         int step(int, int);
         int draw(sf::RenderWindow *);
         ~Rect();
-    };
-
-    class Numb {
-    private:
-        Numb *id_next;
-        sf::Text text;
-        std::wstring str;
-        sf::Vector2f position;
-        int dy;
-        int alpha;
-        int dalpha;
-    public:
-        Numb(int, int, int, bool, Numb*, sf::Font*);
-        int step();
-        int draw(sf::RenderWindow *);
-        ~Numb();
     };
 
     bool fillStrings();
@@ -104,6 +110,8 @@ private:
     int sent_num;
     int current_pos_text;
     int sent_array[GAME_NUM_SENT];
+    bool is_failed_word;
+    bool is_failed_sent;
 
     sf::Font* font;
     sf::Text* text;

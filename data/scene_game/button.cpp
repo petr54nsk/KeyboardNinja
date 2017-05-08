@@ -3,6 +3,8 @@ kb::SceneGame::Button::Button(wchar_t let, Button* next, sf::Keyboard::Key key, 
     letter = let;
     letter_key = key;
 
+    failed = 0;
+
     dx = -speed;
     dy = 0;
     position.x = SCREEN_WIDTH + x_moved;
@@ -48,7 +50,7 @@ int kb::SceneGame::Button::setActive(bool value) {
 }
 
 
-int kb::SceneGame::Button::process(sf::Keyboard::Key key, bool is_key_true, bool is_release_key, Button* prev) {
+int kb::SceneGame::Button::process(sf::Keyboard::Key key, bool is_key_true, int is_release_key, Button* prev, Numb* head_numb) {
     int moved = 0;
     if (getNext() == NULL) active = 1;
 
@@ -60,13 +62,19 @@ int kb::SceneGame::Button::process(sf::Keyboard::Key key, bool is_key_true, bool
 
         if (is_key_true) {
             color = sf::Color(252,221,79);
-        } else
-        color = sf::Color(232,76,61);
+        } else {
+            color = sf::Color(232,76,61);
+        }
 
-        if (is_release_key) {
+        if (is_release_key == 1) {
             prev->setNext(getNext());
+            new Numb(position.x + 52, position.y + 52, 25, 1, head_numb);
             delete this;
             return 0;
+        }
+
+        if (is_release_key == 2) {
+            new Numb(position.x + 52, position.y + 52, 15, 0, head_numb);
         }
 
         if (key == sf::Keyboard::Unknown)
@@ -76,7 +84,7 @@ int kb::SceneGame::Button::process(sf::Keyboard::Key key, bool is_key_true, bool
     return moved;
 }
 
-int kb::SceneGame::Button::step() {
+int kb::SceneGame::Button::step(int &score, Numb* head_numb) {
     Button* next_object = getNext();
 
     bool is_not_move = 0;
@@ -87,8 +95,14 @@ int kb::SceneGame::Button::step() {
     }
     if ((position.x + dx > 20) && (place_free))
     position.x += dx; else is_not_move = 1;
-
     position.y -= dy;
+
+    if (!failed && is_not_move) {
+        failed = 1;
+        score -= 25;
+        new Numb(position.x + 52, position.y + 52, 25, 0, head_numb);
+    }
+
     return is_not_move;
 }
 

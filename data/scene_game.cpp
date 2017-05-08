@@ -18,12 +18,14 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
     sents_max = 4;
     level = 0;
 
+    is_failed_word = is_failed_sent = 0;
+
     rectangleShape = new Rect();
 
     font = new sf::Font;
     font->loadFromFile("graphics/Rex_Bold.otf");
 
-    //head_numb_stack = new Numb(200, 400, 25, 0,  NULL, font);
+    head_numb_stack = new Numb(200, 400, 25, 0, NULL);
 
     text_button.setPosition(200,300);
     text_button.setFont(*font);
@@ -73,6 +75,7 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
 
 void kb::SceneGame::eventProc() {
     sf::Event event;
+    key_released = sf::Keyboard::Unknown;
     while (app->pollEvent(event))
     {
         switch (event.type) {
@@ -104,11 +107,21 @@ char kb::SceneGame::step() {
 
     int allow = 0;
     if (checkPressedKey(key_released, output_str[current_sent][current_pos_text+1])) {
+
+        if (output_str[current_sent][current_pos_text+1] == ' ') {
+            if (!is_failed_word) score += 50;
+            is_failed_word = 0;
+        }
+
         current_pos_text += 1;
         score += 25;
         key_released = sf::Keyboard::Unknown;
 
         if (current_pos_text > lett_num[current_sent] - 2) {
+
+            if (!is_failed_sent) score += 100;
+            is_failed_sent = 0;
+
             sent_array[current_sent] = 0;
             current_pos_text = -1;
 
@@ -140,6 +153,14 @@ char kb::SceneGame::step() {
             if ((speed+=dspeed)>speed_max) speed = speed_max;
             createButtons();
         }
+    } else {
+        if (key_released != sf::Keyboard::Unknown &&
+            key_released != sf::Keyboard::LShift &&
+            key_released != sf::Keyboard::RShift) {
+            score -= 15;
+            is_failed_word = 1;
+            is_failed_sent = 1;
+        }
     }
 
     std::wstring input_str = L"";
@@ -152,12 +173,7 @@ char kb::SceneGame::step() {
     input_text->setString(input_str);
 
     // Смена сцены при нажатии
-    if (allow==2) {
-        destroy(scene_main_menu);
-        return 1;
-    }
-
-    if (is_game_over) {
+    if (allow==2 || is_game_over || score<0) {
         destroy(scene_main_menu);
         return 1;
     }
@@ -205,7 +221,7 @@ void kb::SceneGame::draw() {
     score_text.setString(score_str);
     app->draw(score_text);
 
-    //procNumbs();
+    procNumbs();
     return;
 }
 
@@ -270,9 +286,14 @@ int kb::SceneGame::stepButtons() {
         prev_id = p;
         p = p->getNext();
         bool is_key_true = checkPressedKey(key_pressed, p->getChar());
-        bool is_release_key = checkPressedKey(key_released, p->getChar());
-        move_flag += p->process(key_pressed, is_key_true, is_release_key, prev_id);
-        passive_objects_count += p->step();
+        int is_release_key = checkPressedKey(key_released, p->getChar());
+        if (key_released != sf::Keyboard::Unknown &&
+            key_released != sf::Keyboard::LShift &&
+            key_released != sf::Keyboard::RShift && !is_release_key) {
+            is_release_key = 2;
+        }
+        move_flag += p->process(key_pressed, is_key_true, is_release_key, prev_id, head_numb_stack);
+        passive_objects_count += p->step(score, head_numb_stack);
     }
 
     if (move_flag) {
@@ -331,8 +352,12 @@ bool kb::SceneGame::fillStrings() {
 }
 
 int kb::SceneGame::procNumbs() {
-    head_numb_stack->step();
-    head_numb_stack->draw(app);
+    Numb *p = head_numb_stack->getNext();
+    while(p) {
+        Numb *buffer = p->getNext();
+        if (p->step()) p->draw(app);
+        p = buffer;
+    }
     return 0;
 }
 
