@@ -18,26 +18,26 @@ int main() {
     scene_main_menu = new SceneMainMenu;
     scene_main_menu->init(&app);
 
-    scene_game = new SceneGame;
+    /*scene_game = new SceneGame;
     scene_game->init(&app);
-
+*/
     scene_table_lead = new SceneTableLead;
     scene_table_lead->init(app);
 
     scene_input_lead = new SceneInputLead;
     scene_input_lead->init(&app);
 
-	scene = scene_main_menu;
+	scene = scene_table_lead;
 
 
     while (app.isOpen())
     {
         app.clear();
         scene->draw();
-        scene->step();
+//        scene->step();
         app.display();
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) app.close();
+ //       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) app.close();
     }
     return 0;
 }

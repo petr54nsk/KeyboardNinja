@@ -58,6 +58,7 @@ private:
 	Rect score_rect[NUMBERS + 1];
 	sf::Event event;
 	sf::Font font;
+	static int const mouse_wheel_speed = 20;
     void destroy();
 public:
     bool init(sf::RenderWindow & app);

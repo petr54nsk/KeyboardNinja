@@ -3,8 +3,7 @@ FLAGS	  =  -Wall
 SFMLFLAGS =  -lsfml-graphics -lsfml-window -lsfml-system
 APPNAME   =  application
 
-menu:
-	g++ main.cpp -lsfml-graphics -lsfml-window -lsfml-system -o menu
+
 all:
 	mkdir -p bin
 	g++ -g main.cpp -o bin/KeyNinja -lsfml-graphics -lsfml-window -lsfml-system
@@ -35,3 +34,6 @@ app: main.o scene_table_lead.o
 
 run: $(APPNAME)
 	 ./$(APPNAME)
+
+menu:
+	g++ main.cpp -lsfml-graphics -lsfml-window -lsfml-system -o menu

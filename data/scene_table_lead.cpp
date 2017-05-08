@@ -34,8 +34,6 @@ bool SceneTableLead::init(sf::RenderWindow &app) {
 	results *res = readFileResult();
 	sf::Color a4(41, 128, 185);
 	sf::Color d0(208, 208, 208);
-	std::cout << res[1];
-	std::cout << res[2];
 	numb[0].setString("Numb");
 	name[0].setString("Name");
 	score[0].setString("MMR");
@@ -55,7 +53,6 @@ bool SceneTableLead::init(sf::RenderWindow &app) {
 	numb[0].setCharacterSize(30);
 	name[0].setCharacterSize(30);
 	score[0].setCharacterSize(30);
-	std::cout << "56" << std::endl;
 	for(int i = 1; i < NUMBERS + 1; i++) {
 		numb[i].setString(convToString(i));
 		name[i].setString(res[i - 1].name);
@@ -86,7 +83,6 @@ char SceneTableLead::step() {
 
 void SceneTableLead::draw() {
 //	window->clear();
-	window->pollEvent(event);
 	for(int i = 0; i < NUMBERS + 1; i++) {
 		numb[i].setPosition(sf::Vector2f(numb_rect[i].x, numb_rect[i].y));
 		score[i].setPosition(sf::Vector2f(score_rect[i].x, score_rect[i].y));
@@ -98,33 +94,43 @@ void SceneTableLead::draw() {
 	tablhead_sprite.setPosition(sf::Vector2f(tablhead_rect.x, tablhead_rect.y));
 	tabl_sprite.setPosition(sf::Vector2f(tabl_rect.x, tabl_rect.y));
 	tablnohead_sprite.setPosition(sf::Vector2f(tablnohead_rect.x, tablnohead_rect.y));
-	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) window->close(); //destroy();
-	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::S && background_bottom_rect.y > 600 - 300) {
-		background_middle_rect.y -= 10;
-		background_top_rect.y -= 10;
-		background_bottom_rect.y -= 10;
-		tablhead_rect.y -= 10;
-		tabl_rect.y -= 10;
-		tablnohead_rect.y -= 10;
-		for(int i = 0; i < NUMBERS + 1; i++) {
-			numb_rect[i].y -= 10;
-			score_rect[i].y -= 10;
-			name_rect[i].y -= 10;
-		}
+	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+		scene = scene_main_menu;
 	}
-	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W && background_top_rect.y < 0) {
-		background_middle_rect.y += 10;
-		background_top_rect.y += 10;
-		background_bottom_rect.y += 10;
-		tablhead_rect.y += 10;
-		tabl_rect.y += 10;
-		tablnohead_rect.y += 10;
-		for(int i = 0; i < NUMBERS + 1; i++) {
-			numb_rect[i].y += 10;
-			score_rect[i].y += 10;
-			name_rect[i].y += 10;
+	while(window->pollEvent(event)) {	
+    	if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+			scene = scene_main_menu;
 		}
-	}
+		if(event.type == sf::Event::Closed) window->close();
+		if(event.type == sf::Event::MouseWheelMoved && event.mouseWheel.delta < 0 && background_bottom_rect.y > 600 - 300) {
+			background_middle_rect.y -= mouse_wheel_speed;
+			background_top_rect.y -= mouse_wheel_speed;
+			background_bottom_rect.y -= mouse_wheel_speed;
+			tablhead_rect.y -= mouse_wheel_speed;
+			tabl_rect.y -= mouse_wheel_speed;
+			tablnohead_rect.y -= mouse_wheel_speed;
+			for(int i = 0; i < NUMBERS + 1; i++) {
+				numb_rect[i].y -= mouse_wheel_speed;
+				score_rect[i].y -= mouse_wheel_speed;
+				name_rect[i].y -= mouse_wheel_speed;
+			}
+		}
+		if(event.type == sf::Event::MouseWheelMoved) {
+			if(event.mouseWheel.delta > 0 && background_top_rect.y < 0) {
+				background_middle_rect.y += mouse_wheel_speed;
+				background_top_rect.y += mouse_wheel_speed;
+				background_bottom_rect.y += mouse_wheel_speed;
+				tablhead_rect.y += mouse_wheel_speed;
+				tabl_rect.y += mouse_wheel_speed;
+				tablnohead_rect.y += mouse_wheel_speed;
+				for(int i = 0; i < NUMBERS + 1; i++) {
+					numb_rect[i].y += mouse_wheel_speed;
+					score_rect[i].y += mouse_wheel_speed;
+					name_rect[i].y += mouse_wheel_speed;
+				}
+			}
+		}
+    }
 	window->draw(background_top_sprite);
 	if(NUMBERS > 8) window->draw(background_middle_sprite);
 	window->draw(background_bottom_sprite);
