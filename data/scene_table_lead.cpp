@@ -1,4 +1,5 @@
 bool SceneTableLead::init(sf::RenderWindow &app) {
+	if(!checkFileResult()) createFileResult();
 	window = &app;
 	background_top_texture.loadFromFile("background_top.png");
 	background_top_sprite.setTexture(background_top_texture);
@@ -198,4 +199,11 @@ void SceneTableLead::writeFileResult(results res[]) {
 		fout << res[i];
 	}
 	fout.close();
+}
+
+bool SceneTableLead::checkFileResult() {
+	std::ifstream file;
+	file.open("results.txt");
+	file.close();
+	return file;
 }

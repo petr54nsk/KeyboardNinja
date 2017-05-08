@@ -29,6 +29,8 @@ private:
 
 	results *readFileResult();
 
+	bool checkFileResult();
+
 	std::string convToString(int number);
 	static int const NUMBERS = 30;
 	sf::RenderWindow *window;
