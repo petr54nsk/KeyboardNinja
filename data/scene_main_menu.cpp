@@ -45,6 +45,8 @@ void SceneMainMenu::eventProc() {
     sf::Event event;
     while (app->pollEvent(event))
     {
+
+
         if (event.type == sf::Event::Closed){
             app->close();
         }
@@ -52,14 +54,21 @@ void SceneMainMenu::eventProc() {
             app->close();}}}
 
 char SceneMainMenu::step(){
-if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
-    new_game->setColor(sf::Color(231, 76, 60));
-}else {new_game->setColor(sf::Color(236, 240, 241));}
-if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 338 && sf::Mouse::getPosition(*app).y < 442){
-    score->setColor(sf::Color(231, 76, 60));
+
+        check++;
+        if (check == 2){
+        color++;
+        if(color == 125){color = 0;}
+        check = 0;}
+                std::cout << color<<std::endl;
+    if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
+        new_game->setColor(sf::Color(color-50, color+50, color+100));
+    }else {new_game->setColor(sf::Color(236, 240, 241));}
+    if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 338 && sf::Mouse::getPosition(*app).y < 442){
+        score->setColor(sf::Color(color-50, color+50, color+100));
     }else{score->setColor(sf::Color(236, 240, 241));}
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 455 && sf::Mouse::getPosition(*app).y < 568){
-    exit1->setColor(sf::Color(231, 76, 60));
+        exit1->setColor(sf::Color(color-50, color+50, color+100));
     }else{exit1->setColor(sf::Color(236, 240, 241));}
 
 

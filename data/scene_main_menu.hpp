@@ -9,7 +9,8 @@ private:
 	sf::Text* exit1;
     sf::Sprite *image_index;
     sf::Texture *image_texture;
-
+    int check = 0;
+    int color = 0;
 
     // сюда пихать переменные для сцены меню
     // int new_var;
