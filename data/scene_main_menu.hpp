@@ -20,5 +20,6 @@ public:
     void draw();
     void destroy(Scene*);
     void eventProc();
+    char step();
 
 };

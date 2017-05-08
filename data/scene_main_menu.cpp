@@ -41,6 +41,7 @@ bool SceneMainMenu::init(sf::RenderWindow* app) {
 /* Шаг. Функция предназначена для отделения вычислений от вывода информации
 на экран */
 void SceneMainMenu::eventProc() {
+    eventProc();
     sf::Event event;
     while (app->pollEvent(event))
     {
@@ -48,8 +49,9 @@ void SceneMainMenu::eventProc() {
             app->close();
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            app->close();
+            app->close();}}}
 
+char SceneMainMenu::step(){
 if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
     new_game->setColor(sf::Color(231, 76, 60));
 }else {new_game->setColor(sf::Color(236, 240, 241));}
@@ -73,12 +75,6 @@ if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         app->close(); // Функция закрытия окна
         }
     }               
-}
-    // Смена сцены при нажатии
-
-}
-
-return;
 }
 
 /* Функция для вывода информации на экран. Выполняется как и Step на каждой
