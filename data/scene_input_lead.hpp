@@ -4,6 +4,16 @@ private:
 	sf::RenderWindow *window;
 	results new_res;
 	results *res;
+	void colorFun();
+	int color1;
+	int color2;
+	int color3;
+	int check1;
+	int check2;
+	int check3;
+	int check4;
+	int check5;
+	int check6;
 	int addNewResult(results res[], results new_res);
 	void writeFileResult(results res[]);
 	results *readFileResult();

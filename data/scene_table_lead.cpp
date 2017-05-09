@@ -34,7 +34,7 @@ bool SceneTableLead::init(sf::RenderWindow &app) {
 	tablnohead_rect.y = 250 + (((NUMBERS / 2) - 1) * 100);
 	results *res = readFileResult();
 	sf::Color a4(41, 128, 185);
-	sf::Color d0(208, 208, 208);
+	sf::Color d0(20, 100, 160);
 	numb[0].setString("Numb");
 	name[0].setString("Name");
 	score[0].setString("MMR");
