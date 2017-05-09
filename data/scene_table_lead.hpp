@@ -23,7 +23,7 @@ private:
 
 	void createFileResult();
 
-	bool addNewResult(results res[], results newres);
+//	bool addNewResult(results res[], results newres);
 
 	void writeFileResult(results res[]);
 
@@ -61,9 +61,9 @@ private:
 	sf::Event event;
 	sf::Font font;
 	static int const mouse_wheel_speed = 20;
-    void destroy();
 public:
     bool init(sf::RenderWindow & app);
     char step();
     void draw();
+    void refresh();
 };

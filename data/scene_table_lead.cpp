@@ -147,29 +147,11 @@ void SceneTableLead::draw() {
     return;
 }
 
-void SceneTableLead::destroy() {
-    return;
-}
-
 std::string SceneTableLead::convToString(int number)
 {
 	std::stringstream ss;
 	ss << number;
 	return ss.str();
-}
-
-bool SceneTableLead::addNewResult(results res[], results new_res) {
-	int buff;
-	for(int i = 0; i < NUMBERS; i++) {
-		if(res[i].score < new_res.score) {
-			for(int j = NUMBERS - 1; j > i; j--) {
-				res[j] = res[j-1];
-			}
-			res[i] = new_res;
-			return 1;
-		}
-	}
-	return 0;
 }
 
 void SceneTableLead::createFileResult() {
@@ -206,4 +188,13 @@ bool SceneTableLead::checkFileResult() {
 	file.open("results.txt");
 	file.close();
 	return file;
+}
+
+void SceneTableLead::refresh() {
+	results *res = readFileResult();
+	for(int i = 1; i < NUMBERS + 1; i++) {
+		numb[i].setString(convToString(i));
+		name[i].setString(res[i - 1].name);
+		score[i].setString(convToString(res[i - 1].score));
+	}
 }

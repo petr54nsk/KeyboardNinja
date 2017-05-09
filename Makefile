@@ -18,6 +18,10 @@ all:
 	cp -f graphics/menu.png bin/graphics/menu.png
 	cp -f graphics/font.TTF bin/graphics/font.TTF
 	cp -f graphics/image.png bin/graphics/image.png
+	cp -f graphics/button_input_table.png bin/button_input_table.png
+	cp -f graphics/field_input.png bin/field_input.png
+	cp -f graphics/background_input_table.png bin/background_input_table.png
+	cp -f graphics/input_window.png bin/input_window.png
 
 clean:
 	rm -rf *.o

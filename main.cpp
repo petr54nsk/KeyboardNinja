@@ -25,16 +25,16 @@ int main() {
     scene_table_lead->init(app);
 
     scene_input_lead = new SceneInputLead;
-    scene_input_lead->init(&app);
+    scene_input_lead->init(app);
 
-	scene = scene_table_lead;
+	scene = scene_input_lead;
 
 
     while (app.isOpen())
     {
         app.clear();
         scene->draw();
-//        scene->step();
+        scene->step();
         app.display();
 
  //       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) app.close();
