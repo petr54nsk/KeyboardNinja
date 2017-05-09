@@ -22,7 +22,7 @@ int main() {
     scene_table_lead->init(app);
 
     scene_input_lead = new SceneInputLead;
-    scene_input_lead->init(&app);
+    scene_input_lead->init(app);
 
     scene = scene_main_menu;
 

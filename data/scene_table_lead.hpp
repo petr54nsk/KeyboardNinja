@@ -1,3 +1,9 @@
+std::string convToString(int number) {
+	std::stringstream ss;
+	ss << number;
+	return ss.str();
+}
+
 struct results {
 	std::string name;
 	int score;
@@ -23,13 +29,13 @@ private:
 
 	void createFileResult();
 
-	bool addNewResult(results res[], results newres);
+//	bool addNewResult(results res[], results newres);
 
 	void writeFileResult(results res[]);
 
 	results *readFileResult();
 
-	std::string convToString(int number);
+	bool checkFileResult();
 	static int const NUMBERS = 30;
 	sf::RenderWindow *window;
 	sf::Texture background_top_texture;
@@ -58,9 +64,10 @@ private:
 	Rect score_rect[NUMBERS + 1];
 	sf::Event event;
 	sf::Font font;
-    void destroy();
+	static int const mouse_wheel_speed = 20;
 public:
     bool init(sf::RenderWindow & app);
     char step();
     void draw();
+    void refresh();
 };

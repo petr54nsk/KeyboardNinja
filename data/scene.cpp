@@ -29,13 +29,13 @@ void Scene::destroy(Scene* scene_next) {
 }
 
 void Scene::eventProc() {
-    sf::Event event;
+    /*sf::Event event;
     while (app->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
             app->close();
     }
-
+*/
     return;
 }
 
