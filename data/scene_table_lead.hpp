@@ -1,3 +1,9 @@
+std::string convToString(int number) {
+	std::stringstream ss;
+	ss << number;
+	return ss.str();
+}
+
 struct results {
 	std::string name;
 	int score;
@@ -30,8 +36,6 @@ private:
 	results *readFileResult();
 
 	bool checkFileResult();
-
-	std::string convToString(int number);
 	static int const NUMBERS = 30;
 	sf::RenderWindow *window;
 	sf::Texture background_top_texture;

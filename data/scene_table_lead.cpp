@@ -147,12 +147,6 @@ void SceneTableLead::draw() {
     return;
 }
 
-std::string SceneTableLead::convToString(int number)
-{
-	std::stringstream ss;
-	ss << number;
-	return ss.str();
-}
 
 void SceneTableLead::createFileResult() {
 	std::ofstream fout("results.txt");

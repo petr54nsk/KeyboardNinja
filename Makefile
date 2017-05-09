@@ -6,7 +6,7 @@ APPNAME   =  application
 
 all:
 	mkdir -p bin
-	g++ -g main.cpp -o bin/KeyNinja -lsfml-graphics -lsfml-window -lsfml-system
+	g++ -g main.cpp -o bin/KeyNinja -lsfml-graphics -lsfml-window -lsfml-system #-std=c++11
 	cp -f graphics/background_bottom.png bin/background_bottom.png
 	cp -f graphics/background_middle.png bin/background_middle.png
 	cp -f graphics/background_top.png bin/background_top.png

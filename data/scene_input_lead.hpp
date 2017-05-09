@@ -2,11 +2,11 @@ class SceneInputLead : public Scene  {
 private:
 	static int const NUMBERS = 30;
 	sf::RenderWindow *window;
-	int new_score;
-	std::string new_name;
-	results *readFileResult();
-	bool addNewResult(results res[], results new_res);
+	results new_res;
+	results *res;
+	int addNewResult(results res[], results new_res);
 	void writeFileResult(results res[]);
+	results *readFileResult();
 	sf::Texture background_texture;
 	sf::Texture window_input_texture;
 	sf::Texture field_input_texture;
@@ -21,7 +21,11 @@ private:
 	sf::Text text2;
 	sf::Font font;
 	sf::Font font_button;
-	sf::Text test;
+	sf::Text input_name;
+	sf::Text new_score;
+	sf::Text text_button1;
+	sf::Text text_button2;
+	bool field_input_bl;
 	bool green;
 	bool red;
 public:

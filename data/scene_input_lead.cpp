@@ -17,7 +17,7 @@ bool SceneInputLead::init(sf::RenderWindow & app) {
 	font.loadFromFile("radiance.woff");
 	font_button.loadFromFile("graphics/font.TTF");
 	text1.setString(L"Счет:");
-	text2.setString(L"Введите ваше имя: ");
+	text2.setString(L"Введите ваше имя:");
 	text1.setPosition(sf::Vector2f(330, 230));
 	text2.setPosition(sf::Vector2f(330, 300));
 	text1.setFont(font);
@@ -25,12 +25,25 @@ bool SceneInputLead::init(sf::RenderWindow & app) {
 	text1.setColor(sf::Color(0, 0, 0));
 	text2.setColor(sf::Color(0, 0, 0));
 	background.setColor(sf::Color(235, 235, 255));
-	test.setString("AAAAAAAAAAA13");
-	test.setPosition(sf::Vector2f(625, 300));
-	test.setFont(font);
-	test.setColor(sf::Color(0, 0, 0));
+	input_name.setPosition(sf::Vector2f(625, 300));
+	input_name.setFont(font);
+	input_name.setColor(sf::Color(0, 0, 0));
+	new_score.setPosition(sf::Vector2f(750, 230));
+	new_score.setColor(sf::Color(0, 0, 0));
+	text_button1.setFont(font_button);
+	text_button2.setFont(font_button);
+	text_button1.setString(L"Меню");
+	text_button2.setString(L"Таблица");
+	text_button1.setColor(sf::Color(255, 255, 255));
+	text_button2.setColor(sf::Color(255, 255, 255));
+	text_button1.setPosition(sf::Vector2f(410, 365));
+	text_button2.setPosition(sf::Vector2f(690, 365));
+	new_score.setFont(font);
+	new_res.score = 5000;
+	res = readFileResult();
 	green = 0;
 	red = 0;
+	field_input_bl = 1;
     return 0;
 }
 
@@ -43,8 +56,17 @@ void SceneInputLead::draw() {
 	while(window->pollEvent(event)) {
 		if(event.type == sf::Event::Closed) window->close();
 		if(event.type == sf::Event::KeyPressed) {
-			if(event.key.code == sf::Keyboard::Escape) green = 1;
-			if(event.key.code == sf::Keyboard::Return) red = 1;
+//			if(event.key.code == sf::Keyboard::Escape) 
+			if(field_input_bl && event.key.code == sf::Keyboard::Return) {
+				field_input_bl = 0;
+				green = addNewResult(res, new_res);
+				if(!green) red = 1;
+				writeFileResult(res);
+			}
+			if(field_input_bl && event.key.code == sf::Keyboard::BackSpace && new_res.name.size() > 0) new_res.name.resize(new_res.name.size() - 1);
+		}
+		if(field_input_bl && event.type == sf::Event::TextEntered && new_res.name.size() < 16) {
+			if((event.text.unicode >= 'A' && event.text.unicode <= 'Z') || (event.text.unicode >= 'a' && event.text.unicode <= 'z'))new_res.name += event.text.unicode;
 		}
 	}
 	if(green) {
@@ -57,14 +79,19 @@ void SceneInputLead::draw() {
 		if(window_input_color.g !=95) window_input_color.g-=10;
 		if(window_input_color.b !=95) window_input_color.b-=20;
 	}
+	new_score.setString(convToString(new_res.score));
+	input_name.setString(new_res.name);
 	window_input.setColor(window_input_color);
 	window->draw(background);
 	window->draw(window_input);
 	window->draw(field_input);
 	window->draw(text1);
 	window->draw(text2);
-	window->draw(test);
+	window->draw(input_name);
+	window->draw(new_score);
 	for(int i = 0; i < 2; i++) window->draw(button[i]);
+	window->draw(text_button1);
+	window->draw(text_button2);
     return;
 }
 
@@ -78,15 +105,15 @@ results *SceneInputLead::readFileResult() {
 	return res;
 }
 
-bool SceneInputLead::addNewResult(results res[], results new_res) {
-	int buff;
+int SceneInputLead::addNewResult(results res[], results new_res_funck) {
 	for(int i = 0; i < NUMBERS; i++) {
-		if(res[i].score < new_res.score) {
+		if(res[i].score < new_res_funck.score) {
+			std::cout << res[i] << std::endl << new_res_funck << std::endl;
 			for(int j = NUMBERS - 1; j > i; j--) {
 				res[j] = res[j-1];
 			}
-			res[i] = new_res;
-			return 1;
+			res[i] = new_res_funck;
+			return i+1;
 		}
 	}
 	return 0;
@@ -101,6 +128,7 @@ void SceneInputLead::writeFileResult(results res[]) {
 }
 
 void SceneInputLead::shipScore(int score_buff) {
-	new_score = score_buff;
+	new_res.score = score_buff;
+	new_res.name.resize(0);
 }
 
