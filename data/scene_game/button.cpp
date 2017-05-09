@@ -1,4 +1,4 @@
-kb::SceneGame::Button::Button(wchar_t let, Button* next, sf::Keyboard::Key key, int x_moved, int speed) {
+SceneGame::Button::Button(wchar_t let, Button* next, sf::Keyboard::Key key, int x_moved, int speed) {
     id_next = next;
     letter = let;
     letter_key = key;
@@ -15,42 +15,42 @@ kb::SceneGame::Button::Button(wchar_t let, Button* next, sf::Keyboard::Key key, 
     active = 0;
 }
 
-kb::SceneGame::Button* kb::SceneGame::Button::getNext() {
+SceneGame::Button* SceneGame::Button::getNext() {
     return id_next;
 }
 
-int kb::SceneGame::Button::setNext(kb::SceneGame::Button* next) {
+int SceneGame::Button::setNext(SceneGame::Button* next) {
     id_next = next;
     return 0;
 }
 
-sf::Color kb::SceneGame::Button::getColor() {
+sf::Color SceneGame::Button::getColor() {
     return color;
 }
 
-wchar_t kb::SceneGame::Button::getChar() {
+wchar_t SceneGame::Button::getChar() {
     return letter;
 }
 
-sf::Vector2f kb::SceneGame::Button::getPosition() {
+sf::Vector2f SceneGame::Button::getPosition() {
     return position;
 }
 
-kb::SceneGame::Button::~Button() {
+SceneGame::Button::~Button() {
 
 }
 
-int kb::SceneGame::Button::keyCheck(sf::Keyboard::Key) {
+int SceneGame::Button::keyCheck(sf::Keyboard::Key) {
     return 0;
 }
 
-int kb::SceneGame::Button::setActive(bool value) {
+int SceneGame::Button::setActive(bool value) {
     active = value;
     return 0;
 }
 
 
-int kb::SceneGame::Button::process(sf::Keyboard::Key key, bool is_key_true, int is_release_key, Button* prev, Numb* head_numb) {
+int SceneGame::Button::process(sf::Keyboard::Key key, bool is_key_true, int is_release_key, Button* prev, Numb* head_numb) {
     int moved = 0;
     if (getNext() == NULL) active = 1;
 
@@ -84,7 +84,7 @@ int kb::SceneGame::Button::process(sf::Keyboard::Key key, bool is_key_true, int 
     return moved;
 }
 
-int kb::SceneGame::Button::step(int &score, Numb* head_numb) {
+int SceneGame::Button::step(int &score, Numb* head_numb) {
     Button* next_object = getNext();
 
     bool is_not_move = 0;
@@ -106,7 +106,7 @@ int kb::SceneGame::Button::step(int &score, Numb* head_numb) {
     return is_not_move;
 }
 
-int kb::SceneGame::Button::move(int _x, int _y) {
+int SceneGame::Button::move(int _x, int _y) {
     if (!active) position.x += _x;
     position.y += _y;
     return 0;

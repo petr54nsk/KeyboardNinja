@@ -1,16 +1,16 @@
-bool kb::SceneTableLead::init(sf::RenderWindow* app) {
+bool SceneTableLead::init(sf::RenderWindow* app) {
     return 0;
 }
 
-char kb::SceneTableLead::step() {
+char SceneTableLead::step() {
     eventProc(); // Обработчик событий
     return 0;
 }
 
-void kb::SceneTableLead::draw() {
+void SceneTableLead::draw() {
     return;
 }
 
-void kb::SceneTableLead::destroy(Scene* scene_next) {
+void SceneTableLead::destroy(Scene* scene_next) {
     return;
 }

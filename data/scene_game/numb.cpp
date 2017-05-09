@@ -1,4 +1,4 @@
-kb::SceneGame::Numb::Numb(int x, int y, int digit, bool sign, Numb *prev) {
+SceneGame::Numb::Numb(int x, int y, int digit, bool sign, Numb *prev) {
     position.x = x;
     position.y = y;
     alpha = 255;
@@ -44,7 +44,7 @@ kb::SceneGame::Numb::Numb(int x, int y, int digit, bool sign, Numb *prev) {
 
 }
 
-int kb::SceneGame::Numb::step() {
+int SceneGame::Numb::step() {
     alpha-=dalpha;
     position.y += dy;
 
@@ -59,27 +59,27 @@ int kb::SceneGame::Numb::step() {
     return 1;
 }
 
-int kb::SceneGame::Numb::setNext(Numb* next) {
+int SceneGame::Numb::setNext(Numb* next) {
     id_next = next;
     return 0;
 }
 
-int kb::SceneGame::Numb::setPrev(Numb* prev) {
+int SceneGame::Numb::setPrev(Numb* prev) {
     id_prev = prev;
     return 0;
 }
 
-int kb::SceneGame::Numb::draw(sf::RenderWindow *app) {
+int SceneGame::Numb::draw(sf::RenderWindow *app) {
     text.setPosition(position);
     text.setColor(sf::Color(r, g, b, alpha));
     app->draw(text);
     return 0;
 }
 
-kb::SceneGame::Numb* kb::SceneGame::Numb::getNext() {
+SceneGame::Numb* SceneGame::Numb::getNext() {
     return id_next;
 }
 
-kb::SceneGame::Numb::~Numb() {
+SceneGame::Numb::~Numb() {
 
 }

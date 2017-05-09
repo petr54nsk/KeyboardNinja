@@ -1,4 +1,4 @@
-kb::SceneGame::Rect::Rect() {
+SceneGame::Rect::Rect() {
     position.x = 20;
     position.y = 175;
     size.x = 358;
@@ -10,7 +10,7 @@ kb::SceneGame::Rect::Rect() {
     alpha = 255;
 }
 
-int kb::SceneGame::Rect::step(int loosed, int mspeed) {
+int SceneGame::Rect::step(int loosed, int mspeed) {
     state = loosed;
     int dx = (int)(mspeed*2.5);
     int dalpha = 5;
@@ -43,7 +43,7 @@ int kb::SceneGame::Rect::step(int loosed, int mspeed) {
     return 0;
 }
 
-int kb::SceneGame::Rect::draw(sf::RenderWindow *app) {
+int SceneGame::Rect::draw(sf::RenderWindow *app) {
     shape.setSize(size); //Width and height
     shape.setPosition(position); //Position
     shape.setFillColor(sf::Color(r, g, b, alpha)); //Color
@@ -51,6 +51,6 @@ int kb::SceneGame::Rect::draw(sf::RenderWindow *app) {
     return 0;
 }
 
-kb::SceneGame::Rect::~Rect() {
+SceneGame::Rect::~Rect() {
 
 }

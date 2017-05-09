@@ -1,5 +1,3 @@
-namespace kb {
-
 class SceneTableLead : public Scene  {
 private:
 
@@ -8,6 +6,4 @@ public:
     char step();
     void draw();
     void destroy(Scene*);
-};
-
 };

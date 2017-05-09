@@ -2,8 +2,6 @@
 #define GAME_NUM_WORDS 15
 #define GAME_NUM_SENT 15
 
-namespace kb {
-
 class SceneGame : public Scene {
 private:
     class Numb {
@@ -126,6 +124,4 @@ public:
     char step();
     void draw();
     void destroy(Scene*);
-};
-
 };

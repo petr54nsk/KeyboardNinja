@@ -1,6 +1,4 @@
 // Сцена главного меню =========================================================
-namespace kb {
-
 class SceneMainMenu : public Scene {
 private:
     sf::Font* font;
@@ -17,6 +15,4 @@ public:
     char step();
     void draw();
     void destroy(Scene*);
-};
-
 };

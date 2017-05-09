@@ -3,7 +3,7 @@
 #include "scene_game/numb.cpp"
 
 // INIT ========================================================================
-bool kb::SceneGame::init(sf::RenderWindow* app) {
+bool SceneGame::init(sf::RenderWindow* app) {
     this->app = app;
     srand(time(0));
 
@@ -73,7 +73,7 @@ bool kb::SceneGame::init(sf::RenderWindow* app) {
     return 0;
 }
 
-void kb::SceneGame::eventProc() {
+void SceneGame::eventProc() {
     sf::Event event;
     key_released = sf::Keyboard::Unknown;
     while (app->pollEvent(event))
@@ -99,7 +99,7 @@ void kb::SceneGame::eventProc() {
 }
 
 // STEP ========================================================================
-char kb::SceneGame::step() {
+char SceneGame::step() {
     eventProc(); // Обработчик событий
 
     text->setString(output_str[current_sent]);
@@ -182,7 +182,7 @@ char kb::SceneGame::step() {
 }
 
 // DRAW ========================================================================
-void kb::SceneGame::draw() {
+void SceneGame::draw() {
     rectangleShape->draw(app);
     drawButtons();
     app->draw(background_index);
@@ -226,16 +226,16 @@ void kb::SceneGame::draw() {
 }
 
 // DESTROY =====================================================================
-void kb::SceneGame::destroy(Scene* next_scene) {
+void SceneGame::destroy(Scene* next_scene) {
     scene = next_scene;
     scene->init(app);
 
     delete scene_game;
-    scene_game = new kb::SceneGame();
+    scene_game = new SceneGame();
     return;
 }
 
-int kb::SceneGame::createButtons() {
+int SceneGame::createButtons() {
     Button *p;
     int current_button_num = 0;
     key_released = sf::Keyboard::Unknown;
@@ -252,7 +252,7 @@ int kb::SceneGame::createButtons() {
     return 0;
 }
 
-int kb::SceneGame::drawButtons() {
+int SceneGame::drawButtons() {
     if (!head_button_stack) return 1;
 
     Button *p = head_button_stack;
@@ -272,7 +272,7 @@ int kb::SceneGame::drawButtons() {
     return 0;
 }
 
-int kb::SceneGame::stepButtons() {
+int SceneGame::stepButtons() {
     if (!head_button_stack) return 1;
 
     int passive_objects_count = 0;
@@ -307,7 +307,7 @@ int kb::SceneGame::stepButtons() {
     return is_game_loose;
 }
 
-int kb::SceneGame::clearButtons() {
+int SceneGame::clearButtons() {
     if (!head_button_stack) return 1;
 
     Button *p = head_button_stack;
@@ -321,7 +321,7 @@ int kb::SceneGame::clearButtons() {
     return 0;
 }
 
-bool kb::SceneGame::fillStrings() {
+bool SceneGame::fillStrings() {
     wchar_t ch;
     sent_num = 0;
     current_sent = 0;
@@ -351,7 +351,7 @@ bool kb::SceneGame::fillStrings() {
     return 0;
 }
 
-int kb::SceneGame::procNumbs() {
+int SceneGame::procNumbs() {
     Numb *p = head_numb_stack->getNext();
     while(p) {
         Numb *buffer = p->getNext();
@@ -361,7 +361,7 @@ int kb::SceneGame::procNumbs() {
     return 0;
 }
 
-int kb::SceneGame::addIntToStr(std::wstring *str, int numb) {
+int SceneGame::addIntToStr(std::wstring *str, int numb) {
 
     if (numb) {
         int count = 0;
@@ -377,7 +377,7 @@ int kb::SceneGame::addIntToStr(std::wstring *str, int numb) {
     return 0;
 }
 
-bool kb::SceneGame::checkPressedKey(sf::Keyboard::Key key, wchar_t ch) {
+bool SceneGame::checkPressedKey(sf::Keyboard::Key key, wchar_t ch) {
     switch (ch) {
         case L'д' : {if (key == sf::Keyboard::L) return 1; break;}
         case L'й' : {if (key == sf::Keyboard::Q) return 1; break;}

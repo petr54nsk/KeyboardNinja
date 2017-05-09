@@ -6,7 +6,7 @@ private объекта класса SceneMainMenu (scene.hpp).
 
 /* Функция инициализации. Аргументы:
 app - указатель на SFML-окно */
-bool kb::SceneMainMenu::init(sf::RenderWindow* app) {
+bool SceneMainMenu::init(sf::RenderWindow* app) {
     this->app = app;
 
     // Инициализация текста
@@ -28,7 +28,7 @@ bool kb::SceneMainMenu::init(sf::RenderWindow* app) {
 
 /* Шаг. Функция предназначена для отделения вычислений от вывода информации
 на экран */
-char kb::SceneMainMenu::step() {
+char SceneMainMenu::step() {
     eventProc(); // Обработчик событий
 
     // Смена сцены при нажатии
@@ -55,13 +55,13 @@ char kb::SceneMainMenu::step() {
 
 /* Функция для вывода информации на экран. Выполняется как и Step на каждой
 итерации главного цикла*/
-void kb::SceneMainMenu::draw() {
+void SceneMainMenu::draw() {
     app->draw(*image_index); // Зачем я это пишу? Всё очевидно
     return;
 }
 
 /* Функция закрытия (смены) сцены */
-void kb::SceneMainMenu::destroy(Scene* next_scene) {
+void SceneMainMenu::destroy(Scene* next_scene) {
     // Очистка памяти
 //    delete (font);
 //    delete (text);
@@ -75,4 +75,4 @@ void kb::SceneMainMenu::destroy(Scene* next_scene) {
     return;
 }
 
-//int kb::SceneMainMenu::new_function(int a, int b) {...}
+//int SceneMainMenu::new_function(int a, int b) {...}
