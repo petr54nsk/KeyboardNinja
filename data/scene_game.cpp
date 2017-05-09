@@ -167,8 +167,13 @@ char SceneGame::step() {
     input_text->setString(input_str);
 
     // Смена сцены при нажатии
-    if (allow==2 || is_game_over || score<0) {
+    if (score<0) {
         destroy(scene_main_menu);
+        return 1;
+    }
+
+    if (is_game_over || allow == 2) {
+        destroy(scene_input_lead);
         return 1;
     }
 
@@ -222,7 +227,9 @@ void SceneGame::draw() {
 // DESTROY =====================================================================
 void SceneGame::destroy(Scene* next_scene) {
     scene = next_scene;
-    scene->init(app);
+    if (next_scene == scene_input_lead)
+    scene_input_lead->shipScore(score);
+    else scene->init(app);
 
     delete scene_game;
     scene_game = new SceneGame();

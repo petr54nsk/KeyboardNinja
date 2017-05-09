@@ -3,7 +3,6 @@ bool SceneInputLead::init(sf::RenderWindow* app) {
 }
 
 char SceneInputLead::step() {
-    eventProc(); // Обработчик событий
     return 0;
 }
 
