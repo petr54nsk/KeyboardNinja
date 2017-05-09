@@ -22,6 +22,8 @@ private:
 	sf::Font font;
 	sf::Font font_button;
 	sf::Text test;
+	bool green;
+	bool red;
 public:
 	void shipScore(int score_buff);
     bool init(sf::RenderWindow &app);

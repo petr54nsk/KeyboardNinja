@@ -15,9 +15,9 @@ bool SceneInputLead::init(sf::RenderWindow & app) {
 	button[1].setPosition(sf::Vector2f(675, 360));
 	window_input_color.r = 235; window_input_color.g = 235; window_input_color.b = 255;
 	font.loadFromFile("radiance.woff");
-	font_button.loadFromFile("font.TTF");
-	text1.setString("Score:");
-	text2.setString("Print your name: ");
+	font_button.loadFromFile("graphics/font.TTF");
+	text1.setString(L"Счет:");
+	text2.setString(L"Введите ваше имя: ");
 	text1.setPosition(sf::Vector2f(330, 230));
 	text2.setPosition(sf::Vector2f(330, 300));
 	text1.setFont(font);
@@ -29,6 +29,8 @@ bool SceneInputLead::init(sf::RenderWindow & app) {
 	test.setPosition(sf::Vector2f(625, 300));
 	test.setFont(font);
 	test.setColor(sf::Color(0, 0, 0));
+	green = 0;
+	red = 0;
     return 0;
 }
 
@@ -41,12 +43,19 @@ void SceneInputLead::draw() {
 	while(window->pollEvent(event)) {
 		if(event.type == sf::Event::Closed) window->close();
 		if(event.type == sf::Event::KeyPressed) {
-			if(event.key.code == sf::Keyboard::Escape) {
-				if(window_input_color.r > 150) window_input_color.r-=15;
-				if(window_input_color.g < 250) window_input_color.g+=15;
-				if(window_input_color.b > 150) window_input_color.b-=15;
-			}
+			if(event.key.code == sf::Keyboard::Escape) green = 1;
+			if(event.key.code == sf::Keyboard::Return) red = 1;
 		}
+	}
+	if(green) {
+		if(window_input_color.r != 95) window_input_color.r-=10;
+		if(window_input_color.g != 255) window_input_color.g+=10;
+		if(window_input_color.b != 95) window_input_color.b-=20;
+	}
+	if(red) {
+		if(window_input_color.r !=255) window_input_color.r+=10;
+		if(window_input_color.g !=95) window_input_color.g-=10;
+		if(window_input_color.b !=95) window_input_color.b-=20;
 	}
 	window_input.setColor(window_input_color);
 	window->draw(background);
