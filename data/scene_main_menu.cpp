@@ -9,8 +9,18 @@ app - указатель на SFML-окно */
 bool SceneMainMenu::init(sf::RenderWindow* app) {
     this->app = app;
 
+    check1 = 1;
+    color1 = 0;
+    check2 = 0;
+    color2 = 0;
+    check3 = 0;
+    color3 = 0;
+    check4 = 0;
+    check5 = 0;
+    check6 = 0;
+
     // Инициализация текста
- font = new sf::Font;
+    font = new sf::Font;
     font->loadFromFile("graphics/Rex_Bold.otf");
 
     text = new sf::Text("KeyboardNinja",*font,85);
@@ -44,8 +54,6 @@ void SceneMainMenu::eventProc() {
     sf::Event event;
     while (app->pollEvent(event))
     {
-
-
         if (event.type == sf::Event::Closed){
             app->close();}
     }
@@ -53,7 +61,7 @@ void SceneMainMenu::eventProc() {
 
 char SceneMainMenu::step(){
     eventProc();
-    
+
     if (check1==1 && color1<252 && check4==0){
         color1+=4;}
     if (color1==252 && check4==0){
@@ -84,9 +92,9 @@ char SceneMainMenu::step(){
         color1-=4;}
     if (check4==1 && check5==1 && color1==0 && check6==1){
         check1 = 1; color1 = 0; check2 = 0; color2 = 0; check3 = 0; color3 = 0; check4 = 0; check5 = 0; check6 = 0;}
-        
+
     std::cout <<color1<<" "<<color2<<" "<<color3<<" "<<std::endl;
-    
+
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
         new_game->setColor(sf::Color(color1, color2, color3));
     }else {new_game->setColor(sf::Color(236, 240, 241));}
@@ -97,14 +105,16 @@ char SceneMainMenu::step(){
         exit1->setColor(sf::Color(color1, color2, color3));
     }else{exit1->setColor(sf::Color(236, 240, 241));}
 
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){ 
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
         destroy(scene_game);}
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 338 && sf::Mouse::getPosition(*app).y < 442){
         destroy(scene_table_lead);}
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 455 && sf::Mouse::getPosition(*app).y < 568){
         app->close();} // Функция закрытия окна
-    }               
+    }
+
+    return 0;
 }
 
 /* Функция для вывода информации на экран. Выполняется как и Step на каждой
@@ -130,9 +140,11 @@ void SceneMainMenu::destroy(Scene* next_scene) {
     delete (image_index);
 
     // Смена сцены
+    if (next_scene == scene_game)
+        scene_game = new SceneGame();
+    next_scene->init(app);
     scene = next_scene;
-    scene->init(app);
     return;
 }
 
-//int kb::SceneMainMenu::new_function(int a, int b) {...}
+//int SceneMainMenu::new_function(int a, int b) {...}

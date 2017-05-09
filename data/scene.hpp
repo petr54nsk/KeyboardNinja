@@ -2,7 +2,6 @@
 #define SCREEN_HEIGHT 640
 #define SCREEN_WIDTH 1200
 
-
 // SCENE (BASE) ================================================================
 class Scene {
 private:
@@ -17,4 +16,3 @@ public:
     virtual void draw();
     virtual void destroy(Scene*);
 };
-

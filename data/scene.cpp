@@ -7,7 +7,7 @@
 // GLOBAL VARIABLES
 Scene *scene;                     // глобальный указатель на текущую сцену
 SceneMainMenu *scene_main_menu;   // Main Menu
-SceneGame *scene_game;           // Game Scene
+SceneGame *scene_game;            // Game Scene
 SceneTableLead *scene_table_lead; // Table Leaders
 SceneInputLead *scene_input_lead; // Input new Leader
 
