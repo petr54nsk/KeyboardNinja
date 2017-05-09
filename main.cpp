@@ -24,7 +24,7 @@ int main() {
     scene_input_lead = new SceneInputLead;
     scene_input_lead->init(app);
 
-    scene = scene_main_menu;
+    scene = scene_input_lead;
 
     while (app.isOpen())
     {
