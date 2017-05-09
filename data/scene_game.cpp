@@ -9,13 +9,13 @@ bool SceneGame::init(sf::RenderWindow* app) {
 
     key_pressed = sf::Keyboard::Unknown;
     distance = 230;
-    distance_min = 10;
+    distance_min = 170;
 
     speed = 2;
-    speed_max = 25;
+    speed_max = 20;
 
     score = 0;
-    sents_max = 4;
+    sents_max = 10;
     level = 0;
 
     is_failed_word = is_failed_sent = 0;
@@ -59,8 +59,12 @@ bool SceneGame::init(sf::RenderWindow* app) {
     sent_array[0] = 0;
     fclose (words_file);
     if (sent_num < sents_max) sents_max = sent_num;
-    if (!(ddistance = (distance-distance_min)/(sent_num-1))) ddistance = 1;
-    if (!(dspeed = (speed_max-speed)/(sent_num-1))) dspeed = 1;
+
+    ddistance = (distance-distance_min)/(sent_num);
+    if (!ddistance) ddistance = 1;
+
+    dspeed = (speed_max-speed)/(sent_num);
+    if (!dspeed) dspeed = 1;
 
     createButtons();
 
@@ -124,7 +128,7 @@ char SceneGame::step() {
             while(!allow) {
                 if (!l_pos && r_pos==sent_num-1) {
                     allow=2;
-                    destroy(scene_main_menu);
+                    destroy(scene_input_lead);
                     return 1;
                 }
                 if (sent_array[l_pos]) {
@@ -172,7 +176,12 @@ char SceneGame::step() {
         return 1;
     }
 
-    if (is_game_over || allow == 2) {
+    if (is_game_over) {
+        destroy(scene_input_lead);
+        return 1;
+    }
+
+    if (allow == 2) {
         destroy(scene_input_lead);
         return 1;
     }
