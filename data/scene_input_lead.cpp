@@ -1,9 +1,9 @@
 bool SceneInputLead::init(sf::RenderWindow & app) {
 	window = &app;
-	background_texture.loadFromFile("background_input_table.png");
-	window_input_texture.loadFromFile("input_window.png");
-	field_input_texture.loadFromFile("field_input.png");
-	button_texture.loadFromFile("button_input_table.png");
+	background_texture.loadFromFile("graphics/background_input_table.png");
+	window_input_texture.loadFromFile("graphics/input_window.png");
+	field_input_texture.loadFromFile("graphics/field_input.png");
+	button_texture.loadFromFile("graphics/button_input_table.png");
 	background.setTexture(background_texture);
 	window_input.setTexture(window_input_texture);
 	field_input.setTexture(field_input_texture);
@@ -14,7 +14,7 @@ bool SceneInputLead::init(sf::RenderWindow & app) {
 	button[0].setPosition(sf::Vector2f(375, 360));
 	button[1].setPosition(sf::Vector2f(675, 360));
 	window_input_color.r = 235; window_input_color.g = 235; window_input_color.b = 255;
-	font.loadFromFile("radiance.woff");
+	font.loadFromFile("graphics/radiance.woff");
 	font_button.loadFromFile("graphics/font.TTF");
 	text1.setString(L"Счет:");
 	text2.setString(L"Введите ваше имя:");
@@ -64,8 +64,18 @@ void SceneInputLead::draw() {
 	colorFun();
 	while(window->pollEvent(event)) {
 		if(event.type == sf::Event::Closed) window->close();
+		if(event.type == sf::Event::MouseButtonReleased) {
+			if(!field_input_bl && sf::Mouse::getPosition(*window).x > 675 && sf::Mouse::getPosition(*window).x < 825 && sf::Mouse::getPosition(*window).y > 360 && sf::Mouse::getPosition(*window).y < 410) {
+	        	scene = scene_table_lead;
+				return;
+			}
+			if(!field_input_bl && sf::Mouse::getPosition(*window).x > 375 && sf::Mouse::getPosition(*window).x < 525 && sf::Mouse::getPosition(*window).y > 360 && sf::Mouse::getPosition(*window).y < 410) {
+	        	scene = scene_main_menu;
+	        	return;
+	        }
+		}
 		if(event.type == sf::Event::KeyPressed) {
-//			if(event.key.code == sf::Keyboard::Escape) 
+			if(event.key.code == sf::Keyboard::Escape) scene = scene_main_menu;
 			if(field_input_bl && event.key.code == sf::Keyboard::Return) {
 				field_input_bl = 0;
 				green = addNewResult(res, new_res);
@@ -89,16 +99,7 @@ void SceneInputLead::draw() {
     } else {
     	text_button2.setColor(sf::Color(255, 255, 255));
     }
-
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-    	if(sf::Mouse::getPosition(*window).x > 375 && sf::Mouse::getPosition(*window).x < 525 && sf::Mouse::getPosition(*window).y > 360 && sf::Mouse::getPosition(*window).y < 410) {
-        	scene = scene_main_menu;
-        }
-    	if(sf::Mouse::getPosition(*window).x > 675 && sf::Mouse::getPosition(*window).x < 825 && sf::Mouse::getPosition(*window).y > 360 && sf::Mouse::getPosition(*window).y < 410) {
-        	scene = scene_table_lead;
-        }
-    }
-	if(green) {
+    if(green) {
 		if(window_input_color.r != 95) window_input_color.r-=10;
 		if(window_input_color.g != 255) window_input_color.g+=10;
 		if(window_input_color.b != 95) window_input_color.b-=20;
@@ -159,6 +160,10 @@ void SceneInputLead::writeFileResult(results res[]) {
 void SceneInputLead::shipScore(int score_buff) {
 	new_res.score = score_buff;
 	new_res.name.resize(0);
+	green = 0;
+	red = 0;
+	field_input_bl = 1;
+	window_input_color.r = 235; window_input_color.g = 235; window_input_color.b = 255;
 }
 
 void SceneInputLead::colorFun() {

@@ -93,8 +93,6 @@ char SceneMainMenu::step(){
     if (check4==1 && check5==1 && color1==0 && check6==1){
         check1 = 1; color1 = 0; check2 = 0; color2 = 0; check3 = 0; color3 = 0; check4 = 0; check5 = 0; check6 = 0;}
 
-    std::cout <<color1<<" "<<color2<<" "<<color3<<" "<<std::endl;
-
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
         new_game->setColor(sf::Color(color1, color2, color3));
     }else {new_game->setColor(sf::Color(236, 240, 241));}
@@ -107,7 +105,10 @@ char SceneMainMenu::step(){
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 221 && sf::Mouse::getPosition(*app).y < 324){
-        destroy(scene_game);}
+        scene_game = new SceneGame();
+        scene_game->init(app);
+        scene = scene_game;
+    }
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 338 && sf::Mouse::getPosition(*app).y < 442){
         destroy(scene_table_lead);}
     if(sf::Mouse::getPosition(*app).x > 310 && sf::Mouse::getPosition(*app).x <920 && sf::Mouse::getPosition(*app).y > 455 && sf::Mouse::getPosition(*app).y < 568){
@@ -136,13 +137,10 @@ void SceneMainMenu::destroy(Scene* next_scene) {
     //delete (new_game);
     //delete (score);
     //delete (exit1);
-    delete (image_texture);
-    delete (image_index);
+    //delete (image_texture);
+    //delete (image_index);
 
     // Смена сцены
-    if (next_scene == scene_game)
-        scene_game = new SceneGame();
-    next_scene->init(app);
     scene = next_scene;
     return;
 }

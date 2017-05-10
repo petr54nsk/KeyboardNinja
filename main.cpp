@@ -16,7 +16,7 @@ int main() {
     scene_main_menu = new SceneMainMenu;
     scene_main_menu->init(&app);
 
-    scene_game = new SceneGame();
+	scene_game = new SceneGame();
 
     scene_table_lead = new SceneTableLead;
     scene_table_lead->init(app);
@@ -24,7 +24,7 @@ int main() {
     scene_input_lead = new SceneInputLead;
     scene_input_lead->init(app);
 
-    scene = scene_input_lead;
+    scene = scene_main_menu;
 
     while (app.isOpen())
     {
