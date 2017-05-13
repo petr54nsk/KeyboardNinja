@@ -178,10 +178,12 @@ void SceneTableLead::writeFileResult(results res[]) {
 }
 
 bool SceneTableLead::checkFileResult() {
+	bool buff;
 	std::ifstream file;
 	file.open("results.txt");
+	buff = file.is_open();
 	file.close();
-	return file;
+	return buff;
 }
 
 void SceneTableLead::refresh() {
