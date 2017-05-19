@@ -1,14 +1,10 @@
 # KeyboardNinja
-Course work (Malcev, Trofimov, Roman)
+Course work (Malcev, Trofimov, Vorozhishchev)
 
-Запуск работы Романа(тестовая версия):
+Запуск KeyboardNinja
 
-make romantest 
+make
+
 cd bin
-./tabltest new
-./tabltest start
-cd ..
 
-
-        ^
-#ctrl-c | ctrl-v 
+./KeyNinja
