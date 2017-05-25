@@ -361,6 +361,10 @@ int SceneGame::procNumbs() {
 }
 
 int SceneGame::addIntToStr(std::wstring *str, int numb) {
+    if (numb < 0) {
+        *str+='-';
+        numb = abs(numb);
+    }
 
     if (numb) {
         int count = 0;
